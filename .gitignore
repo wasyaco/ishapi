@@ -10,3 +10,5 @@ test/dummy/tmp/
 *.trash
 \#*
 .#*
+
+ishapi-0.1*gem
