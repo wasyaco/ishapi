@@ -12,3 +12,6 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+gem 'jbuilder'
+gem 'ish_models', :path => '/home/piousbox/projects/ruby/ish_models'
