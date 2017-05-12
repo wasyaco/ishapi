@@ -3,7 +3,7 @@ module Ishapi
   class SitesController < ApplicationController
 
     def index
-      @sites = Site.all
+      @sites = ::Site.all
     end
 
     def show
@@ -12,7 +12,7 @@ module Ishapi
       else
         domain = params[:domain]
       end
-      @site = Site.find_by :domain => domain, :lang => :en
+      @site = ::Site.find_by :domain => domain, :lang => :en
     end
 
   end
