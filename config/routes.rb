@@ -6,7 +6,8 @@ Ishapi::Engine.routes.draw do
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
 
-  get 'reports',                   :to => 'reports#index'
-  get 'reports/view/:report_name', :to => 'reports#show'
+  get 'reports/view/:name_seo', :to => 'reports#show'
+
+  get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }
 
 end

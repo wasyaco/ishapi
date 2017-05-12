@@ -13,3 +13,4 @@ test/dummy/tmp/
 
 ishapi-0.1*gem
 /vendor
+/test/dummy/vendor
