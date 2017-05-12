@@ -13,6 +13,7 @@ module Ishapi
         domain = params[:domain]
       end
       @site = ::Site.find_by :domain => domain, :lang => :en
+      @newsitems = @site.newsitems.limit(10)
     end
 
   end

@@ -1,4 +1,4 @@
-
+ 
 #
 # ishapi / sites / show
 #
@@ -9,8 +9,10 @@ json.cache! key do
     json.id        @site.id.to_s
     json.domain    @site.domain
     json.lang      @site.lang
-    json.newsitems @site.newsitems.limit(10)
-  
-    # json.reports @site.reports
+    json.newsitems do
+      json.array! @newsitems do |item|
+        json.descr item.descr
+      end
+    end
   end
 end
