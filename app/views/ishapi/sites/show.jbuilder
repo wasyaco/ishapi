@@ -11,6 +11,11 @@ json.cache! key do
     json.lang      @site.lang
     json.newsitems do
       json.array! @newsitems do |item|
+        if item.gallery
+          json.item_type 'gallery'
+          json.name      item.gallery.name
+          json.partial! 'ishapi/photos/index', :photos => item.gallery.photos
+        end
         json.descr item.descr
       end
     end
