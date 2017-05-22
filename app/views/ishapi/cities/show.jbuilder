@@ -10,6 +10,8 @@ json.cache! key do
     json.name        @city.name
     json.cityname    @city.cityname
     json.description @city.description
+    json.x           @city.x
+    json.y           @city.y
     json.partial! 'ishapi/newsitems/index', :newsitems => @city.newsitems
     json.partial! 'ishapi/galleries/index', :galleries => @city.galleries
     json.partial! 'ishapi/reports/index',   :reports   => @city.reports
