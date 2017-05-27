@@ -6,6 +6,7 @@ module Ishapi
     def home
       render :json => { :status => :ok, :message => 'Ishapi::ApiController.home', 
                         :n_reports => Report.count, :n_cities => City.count }
+      authorize! :welcome_home, Ishapi
     end
 
 =begin

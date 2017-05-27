@@ -28,5 +28,7 @@ class Ishapi::Ability
       report.is_public
     end
     
+    can [ :welcome_home ], Ishapi
+
   end
 end
