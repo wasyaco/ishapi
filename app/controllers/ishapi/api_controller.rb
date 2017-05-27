@@ -1,4 +1,3 @@
-
 require_dependency "ishapi/application_controller"
 
 module Ishapi
