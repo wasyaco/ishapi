@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -ex
+
+./scripts/version_bump
+
+bundle
+
+gem build ishapi.gemspec
+gem push ishapi-`cat VERSION`.gem
+
+git add .
+git commit -m 'autobuild `date "+%Y%m%d"`'
+git push
+
+echo "ishapi build ok"
+

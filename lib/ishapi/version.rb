@@ -1,3 +1,3 @@
 module Ishapi
-  VERSION = '0.1.6'
+  VERSION = File.read("VERSION")
 end

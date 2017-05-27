@@ -3,7 +3,8 @@ module Ishapi
   class GalleriesController < ApplicationController
 
     def show
-      @gallery = ::Gallery.find_by :galleryname => params[:galleryname]
+      @gallery = ::Gallery.unscoped.find_by :galleryname => params[:galleryname]
+      authorize! :show, @gallery
     end
 
   end
