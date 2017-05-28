@@ -19,6 +19,8 @@ class Ishapi::Ability
       
     end
     user ||= User.new
+
+    can [ :index, :show ], City
     
     can [ :read ], Gallery do |gallery|
       gallery.is_public
@@ -29,6 +31,8 @@ class Ishapi::Ability
     end
     
     can [ :welcome_home ], Ishapi
+
+    can [ :index, :show ], Site
 
   end
 end

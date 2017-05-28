@@ -3,6 +3,7 @@ module Ishapi
   class SitesController < ApplicationController
 
     def index
+      authorize! :index, ::Site
       @sites = ::Site.all
     end
 
@@ -13,6 +14,8 @@ module Ishapi
         domain = params[:domain]
       end
       @site = ::Site.find_by :domain => domain, :lang => :en
+      authorize! :show, @site
+
       @newsitems = @site.newsitems.limit(10)
     end
 
