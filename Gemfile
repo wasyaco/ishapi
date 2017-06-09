@@ -15,3 +15,4 @@ gemspec
 
 gem 'jbuilder'
 gem 'ish_models', :path => '/home/piousbox/projects/ruby/ish_models'
+gem 'aws-sdk'

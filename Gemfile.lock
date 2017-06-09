@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.8)
+    ishapi (0.1.8.9)
       cancancan (~> 2.0)
       kaminari-actionview (~> 1.0)
       kaminari-mongoid (~> 1.0)
@@ -56,6 +56,14 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    aws-sdk (2.9.37)
+      aws-sdk-resources (= 2.9.37)
+    aws-sdk-core (2.9.37)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.9.37)
+      aws-sdk-core (= 2.9.37)
+    aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bson (4.2.1)
     builder (3.2.3)
@@ -76,6 +84,7 @@ GEM
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
+    jmespath (1.3.1)
     json (2.1.0)
     kaminari-actionview (1.0.1)
       actionview
@@ -181,6 +190,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   ish_models!
   ishapi!
   jbuilder
