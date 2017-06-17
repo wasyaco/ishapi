@@ -37,5 +37,9 @@ class Ishapi::Ability
 
     can [ :index, :show ], Site
 
+    can [ :index ], Venue
+    can [ :show ], Venue do |venue|
+      venue.is_public
+    end
   end
 end

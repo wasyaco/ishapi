@@ -12,4 +12,6 @@ Ishapi::Engine.routes.draw do
 
   get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }
 
+  get 'venues/view/:venuename', :to => 'venues#show'
+
 end
