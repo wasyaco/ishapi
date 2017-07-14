@@ -9,7 +9,9 @@ json.newsitems do
       json.item_type  'gallery' #@TODO: should be a constant
       json.name        item.gallery.name
       json.galleryname item.gallery.galleryname
-      json.partial!   'ishapi/photos/index', :photos => item.gallery.photos
+     
+      json.partial!    'ishapi/application/meta', :item => item.gallery
+      json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos.limit( 6 )
     end
     if item.report
       json.item_type  'report'
@@ -18,6 +20,8 @@ json.newsitems do
       json.report_id  item.report_id.to_s
     end
     if item.video
+      json.partial! 'ishapi/videos/show', :video => item.video
+    
       json.item_type  'video'
       json.name       item.video.name
       json.descr      item.video.descr

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.13)
+    ishapi (0.1.8.14)
       cancancan (~> 2.0)
       kaminari-actionview (~> 1.0)
       kaminari-mongoid (~> 1.0)
