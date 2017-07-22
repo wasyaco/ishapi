@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancancan', [ "~> 2.0" ]
   s.add_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_dependency "kaminari-actionview", [ "~> 1.0" ]
+  s.add_dependency "koala", [ "~> 3.0" ]
+  s.add_dependency "fb_graph"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-rails"

@@ -4,5 +4,5 @@
 #
 
 json.videos videos do |video|
-  json.partial! :show, :video => video
+  json.partial! 'ishapi/videos/show', :video => video
 end

@@ -33,7 +33,7 @@ class Ishapi::Ability
       report.is_public
     end
     
-    can [ :welcome_home ], Ishapi
+    can [ :welcome_home, :fb_sign_in, :open_permission ], Ishapi
 
     can [ :index, :show ], Site
 
