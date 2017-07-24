@@ -12,9 +12,10 @@ Ishapi::Engine.routes.draw do
 
   get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }
 
-  post 'users/fb_sign_in', :to => 'users#fb_sign_in'
-  post 'users/profile',    :to => 'users#show'
-  get  'users/profile',    :to => 'users#show' # @TODO: only for testing! accessToken must be hidden, therefore POST
+  post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
+  post 'users/profile',        :to => 'users#show'
+  post 'users/profile/update', :to => 'users#update'
+  get  'users/profile',        :to => 'users#show' # @TODO: only for testing! accessToken must be hidden
 
   get 'venues/view/:venuename', :to => 'venues#show'
 

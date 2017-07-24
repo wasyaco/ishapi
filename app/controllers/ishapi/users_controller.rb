@@ -35,5 +35,21 @@ module Ishapi
       @user_profile = IshModels::UserProfile.find_by :email => me['email']
     end
 
+    def update
+      authorize! :fb_sign_in, Ishapi
+
+      @graph        = Koala::Facebook::API.new( params[:accessToken] )
+      me            = @graph.get_object( 'me', :fields => 'email' )
+      @user         = User.find_by( :email => me['email'] )
+      @user_profile = IshModels::UserProfile.find_by :email => me['email']
+      
+      flag = @user_profile.update_attributes( params[:user_profile].permit( :about, :current_city_id ) )
+      if flag
+        render :json => { :status => :ok }
+      else
+        render :json => { :status => :not_ok, :errors => @user_profile.errors.messages }
+      end
+    end
+
   end
 end
