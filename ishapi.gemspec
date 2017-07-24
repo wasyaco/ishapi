@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency "koala", [ "~> 3.0" ]
   s.add_dependency "fb_graph"
 
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency 'simplecov'
+  # s.add_development_dependency "rspec"
+  # s.add_development_dependency "rspec-rails"
+  # s.add_development_dependency 'simplecov'
 
 end
