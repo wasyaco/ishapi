@@ -14,3 +14,6 @@ test/dummy/tmp/
 ishapi-0.1*gem
 /vendor
 /test/dummy/vendor
+
+test/dummy/config/initializers/00_s3.rb
+test/dummy/config/initializers/s3.rb

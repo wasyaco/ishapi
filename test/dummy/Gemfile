@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
 gem 'mongoid'
+gem 'mongoid-paperclip'
 gem 'ish_models'
+gem 'cancancan'
+gem 'kaminari'
+gem 'kaminari-mongoid'
+gem 'kaminari-actionview'
+gem 'devise'
+gem 'aws-sdk'
 
 group :development, :test do
   gem 'rspec'
