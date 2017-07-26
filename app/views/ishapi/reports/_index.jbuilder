@@ -3,6 +3,7 @@
 # ishapi / reports / _index
 #
 
+json.n_reports reports.count
 json.reports do
   json.array! reports do |report|
     json.id          report.id.to_s

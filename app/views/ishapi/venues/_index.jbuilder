@@ -3,6 +3,7 @@
 # ishapi / venues / _index
 #
 
+json.n_venues venues.count
 json.venues do
   json.array! venues do |venue|
     json.id          venue.id.to_s

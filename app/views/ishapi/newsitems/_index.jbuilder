@@ -3,6 +3,7 @@
 # ishapi / newsitems / _index
 #
 
+json.n_newsitems newsitems.count
 json.newsitems do
   json.array! newsitems do |item|
     if item.gallery
