@@ -8,6 +8,15 @@ Ishapi::Engine.routes.draw do
 
   get 'galleries/view/:galleryname', :to => 'galleries#show'
 
+  namespace :my do
+    post 'reports', :to => 'reports#index'
+    get  'reports', :to => 'reports#index'
+
+    # resources :reports
+    # resources :galleries
+    # resources :videos
+  end
+
   get 'reports/view/:name_seo', :to => 'reports#show'
 
   get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }

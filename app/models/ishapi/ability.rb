@@ -29,7 +29,8 @@ class Ishapi::Ability
       gallery.is_public
     end
 
-    can [ :show ], Report do |report|
+    can [ :my_index,
+          :show ], Report do |report|
       report.is_public
     end
     

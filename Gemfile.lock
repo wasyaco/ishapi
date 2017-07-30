@@ -13,7 +13,7 @@ PATH
 PATH
   remote: /home/piousbox/projects/ruby/ish_models
   specs:
-    ish_models (0.0.33.20)
+    ish_models (0.0.33.21)
       devise (> 0)
       mongoid (~> 6.1.0, >= 6.1.0)
 
