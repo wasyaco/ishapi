@@ -7,5 +7,14 @@ module Ishapi
       authorize! :show, @report
     end
 
+    def index
+      authorize! :index, Report
+      @reports = Report.all
+      if params[:cityname]
+        city = City.find_by :cityname => params[:cityname]
+        @reports = @reports.where( :city_id => city.id )
+      end
+    end
+
   end
 end

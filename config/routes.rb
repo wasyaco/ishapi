@@ -17,6 +17,7 @@ Ishapi::Engine.routes.draw do
     # resources :videos
   end
 
+  get 'reports', :to => 'reports#index'
   get 'reports/view/:name_seo', :to => 'reports#show'
 
   get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }

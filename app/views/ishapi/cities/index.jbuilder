@@ -9,5 +9,8 @@ json.cache! key do
     json.id city.id.to_s
     json.name city.name
     json.cityname city.cityname
+    if city.profile_photo
+      json.photo city.profile_photo.photo.url( :thumb )
+    end
   end
 end
