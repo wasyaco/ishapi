@@ -9,7 +9,8 @@ json.cache! key do
     json.id        @site.id.to_s
     json.domain    @site.domain
     json.lang      @site.lang
+    json.partial! 'ishapi/features/index',  :features  => @site.features
     json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems
-    json.partial! 'ishapi/videos/index', :videos => @site.videos
+    json.partial! 'ishapi/videos/index',    :videos    => @site.videos
   end
 end
