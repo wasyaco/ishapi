@@ -6,6 +6,7 @@ Ishapi::Engine.routes.draw do
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
 
+  get 'galleries',                   :to => 'galleries#index'
   get 'galleries/view/:galleryname', :to => 'galleries#show'
 
   namespace :my do

@@ -10,6 +10,7 @@ json.cache! key do
     json.name        @city.name
     json.cityname    @city.cityname
     json.description @city.description
+    json.photo       @city.profile_photo.photo.url( :thumb ) if @city.profile_photo
     json.x           @city.x
     json.y           @city.y
 
