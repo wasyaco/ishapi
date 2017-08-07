@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.19)
+    ishapi (0.1.8.20)
       cancancan (~> 2.0)
       fb_graph
       kaminari-actionview (~> 1.0)
