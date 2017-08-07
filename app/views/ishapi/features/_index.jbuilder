@@ -12,7 +12,9 @@ json.features do
       json.name       r.name
       json.subhead    r.subhead
       json.reportname r.name_seo
-      json.photo_url  r.photo.photo.url( :thumb )
+      if r.photo
+        json.photo_url  r.photo.photo.url( :thumb )
+      end
     end
   end
 end
