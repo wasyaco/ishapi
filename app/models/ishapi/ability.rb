@@ -9,7 +9,7 @@ class Ishapi::Ability
     #
     unless user.blank?
 
-      if user.profile && user.profile.manager?
+      if user.profile && user.profile.sudoer?
         can :manage, :all
       end
 
