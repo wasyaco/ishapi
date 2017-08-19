@@ -3,9 +3,12 @@
 # ishapi / features / _index
 #
 
+resource ||= site if defined? site
+resource ||= city if defined? city
+
 json.n_features features.count
 json.features do
-  json.array! features do |feature|
+  json.array! features.limit( resource.n_features ) do |feature|
 
     json.name       feature.name       unless feature.name.blank?
     json.subhead    feature.subhead    unless feature.subhead.blank?

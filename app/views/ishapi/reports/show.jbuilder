@@ -9,7 +9,7 @@ json.cache! key do
     json.id          @report.id.to_s
     json.name        @report.name
     json.reportname  @report.name_seo
-    json.photo_url   @report.photo.photo.url( :small )
+    json.photo_url   @report.photo.photo.url( :small ) if @report.photo
     json.thumb_url   @report.photo.photo.url( :thumb )
 
     # @TODO: move this to meta

@@ -15,7 +15,8 @@ module Ishapi
       u                 = IshModels::UserProfile.find_or_create_by :email => email
       u.fb_access_token = access_token
       u.name          ||= name
-      u.user            = user
+      u.user          ||= user
+      u.email         ||= email
       u.user          ||= User.create( :email => email, :password => (0..8).map { "#{rand(100)}" }.join("#{rand(100)}") )
 
       auth                   = Koala::Facebook::OAuth.new

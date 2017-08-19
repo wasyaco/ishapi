@@ -15,7 +15,7 @@ json.cache! key do
     json.y           @city.y
 
     json.partial! 'ishapi/newsitems/index', :newsitems => @city.newsitems
-    json.partial! 'ishapi/features/index',  :features  => @city.features
+    json.partial! 'ishapi/features/index',  :features  => @city.features, :resource => @city
     json.partial! 'ishapi/galleries/index', :galleries => @city.galleries
     json.partial! 'ishapi/reports/index',   :reports   => @city.reports
     json.partial! 'ishapi/users/index',     :users     => @city.current_users

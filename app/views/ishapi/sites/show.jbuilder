@@ -12,7 +12,7 @@ json.cache! key do
 
     json.is_ads_enabled @site.is_ads_enabled
 
-    json.partial! 'ishapi/features/index',  :features  => @site.features
+    json.partial! 'ishapi/features/index',  :features  => @site.features, :resource => @site
     json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems
     json.partial! 'ishapi/videos/index',    :videos    => @site.videos
   end
