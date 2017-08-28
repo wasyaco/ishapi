@@ -21,7 +21,8 @@ Ishapi::Engine.routes.draw do
   get 'reports', :to => 'reports#index'
   get 'reports/view/:name_seo', :to => 'reports#show'
 
-  get 'sites/view/:domain', :to => 'sites#show', :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain',                           :to => 'sites#show',      :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain/newsitems/:newsitems_page', :to => 'newsitems#index', :constraints => { :domain => /[^\/]+/ }
 
   post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
   post 'users/profile',        :to => 'users#show'
