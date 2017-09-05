@@ -22,6 +22,8 @@ module Ishapi
       auth                   = Koala::Facebook::OAuth.new
       u.fb_long_access_token = auth.exchange_access_token access_token
 
+      puts! u, 'profile, here'
+
       if u.save
         render :json => { :status => :ok, :profile => u }
       else

@@ -17,6 +17,7 @@ module Ishapi
       authorize! :show, @site
 
       @newsitems = @site.newsitems.limit(10)
+      @langs = ::Site.where( :domain => domain ).map( &:lang )
     end
 
   end

@@ -15,6 +15,7 @@ json.features do
     json.link_path  feature.link_path  unless feature.link_path.blank?
     json.inner_html feature.inner_html unless feature.inner_html.blank?
     json.photo_url  feature.image_path unless feature.image_path.blank?
+    json.created_at feature.created_at
     
     if feature.report
       r = feature.report
