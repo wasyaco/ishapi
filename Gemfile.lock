@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.32)
+    ishapi (0.1.8.33)
       cancancan (~> 2.0)
       fb_graph
       kaminari-actionview (~> 1.0)
@@ -13,7 +13,7 @@ PATH
 PATH
   remote: /home/piousbox/projects/ruby/ish_models
   specs:
-    ish_models (0.0.33.24)
+    ish_models (0.0.33.27)
       devise (> 0)
       mongoid (~> 6.1.0, >= 6.1.0)
 
@@ -193,4 +193,4 @@ DEPENDENCIES
   jbuilder
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
