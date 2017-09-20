@@ -7,7 +7,9 @@ json.n_newsitems newsitems.count
 json.newsitems do
   json.array! newsitems do |item|
     json.created_at item.created_at
-
+    json.descr item.descr
+    json.name      item.name
+    
     if item.gallery
       json.item_type  'gallery' #@TODO: should be a constant
       json.name        item.gallery.name
@@ -32,6 +34,10 @@ json.newsitems do
       json.y          item.video.y
       json.youtube_id item.video.youtube_id
     end
-    json.descr item.descr
+    if item.photo
+      json.item_type 'photo'
+      json.partial! 'ishapi/photos/index', :photos => [ item.photo ]
+    end
+
   end
 end
