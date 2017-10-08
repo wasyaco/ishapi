@@ -16,3 +16,5 @@ gemspec
 gem 'jbuilder'
 gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
 gem 'aws-sdk'
+
+gem 'i18n'

@@ -190,6 +190,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
+  i18n
   ish_models!
   ishapi!
   jbuilder
