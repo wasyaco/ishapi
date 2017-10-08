@@ -156,6 +156,7 @@ DEPENDENCIES
   aws-sdk
   cancancan
   devise
+  i18n
   ish_models
   kaminari
   kaminari-actionview
@@ -167,4 +168,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
