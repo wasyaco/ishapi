@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Ishapi::CitiesController do
+describe Ishapi::GalleriesController do
   render_views
   routes { Ishapi::Engine.routes }
   before :each do
