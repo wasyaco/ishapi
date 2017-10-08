@@ -14,5 +14,5 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'jbuilder'
-gem 'ish_models', :path => '/home/piousbox/projects/ruby/ish_models'
+gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
 gem 'aws-sdk'
