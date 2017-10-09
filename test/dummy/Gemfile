@@ -17,6 +17,7 @@ gem 'minitest', '5.10.3'
 gem 'activesupport', '5.1.4'
 gem 'public_suffix', '3.0.0'
 gem 'addressable', '2.5.2'
+gem 'attr_required', '1.0.1'
 
 group :development, :test do
   gem 'rspec'
