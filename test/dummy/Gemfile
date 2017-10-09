@@ -9,7 +9,7 @@ gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 gem 'devise'
 gem 'aws-sdk'
-gem 'i18n'
+gem 'i18n', '0.8.1'
 
 group :development, :test do
   gem 'rspec'
