@@ -1,5 +1,6 @@
 language: ruby
-install: 
+install: true
+install_trash:
  - bundle install --gemfile=test/dummy/Gemfile
 script:
  - cd test/dummy && rspec spec -f documentation
