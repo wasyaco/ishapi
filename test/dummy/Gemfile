@@ -12,7 +12,7 @@ gem 'devise'
 gem 'aws-sdk'
 
 # for travis dependencies
-gem 'i18n', '0.8.1'
+gem 'i18n', '0.8.6'
 gem 'minitest', '5.10.2'
 gem 'activesupport', '5.1.4'
 
