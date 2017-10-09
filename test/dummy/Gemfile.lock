@@ -537,6 +537,7 @@ GEM
     mongoid-paperclip (0.0.11)
       mongoid
       paperclip (>= 2.3.6, != 4.3.0)
+    multi_json (1.12.2)
     multipart-post (2.0.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
@@ -642,6 +643,7 @@ DEPENDENCIES
   minitest (= 5.10.3)
   mongoid
   mongoid-paperclip
+  multi_json (= 1.12.2)
   multipart-post (= 2.0.0)
   public_suffix (= 3.0.0)
   rails (= 5.1.4)

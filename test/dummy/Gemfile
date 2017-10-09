@@ -21,6 +21,7 @@ gem 'attr_required', '1.0.1'
 gem 'multipart-post', '2.0.0'
 gem 'faraday', '0.13.1'
 gem 'httpclient', '2.8.3'
+gem 'multi_json', '1.12.2'
 
 group :development, :test do
   gem 'rspec'
