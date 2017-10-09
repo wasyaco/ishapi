@@ -2,4 +2,4 @@ language: ruby
 install: 
  - bundle install --gemfile=test/dummy/Gemfile
 script:
- - cd test/dummy && bundle --gemfile=Gemfile && bundle exec rspec spec -f documentation
+ - cd test/dummy && bundle --gemfile=Gemfile && gem install i18n && rspec spec -f documentation
