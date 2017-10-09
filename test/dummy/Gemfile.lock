@@ -522,7 +522,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.3.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (6.1.1)
@@ -627,7 +627,7 @@ DEPENDENCIES
   kaminari
   kaminari-actionview
   kaminari-mongoid
-  minitest (= 5.10.2)
+  minitest (= 5.10.3)
   mongoid
   mongoid-paperclip
   rails (= 5.1.4)
