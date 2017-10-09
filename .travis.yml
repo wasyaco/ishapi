@@ -2,4 +2,4 @@ language: ruby
 install: 
  - bundle install --gemfile=test/dummy/Gemfile
 script:
- - cd test/dummy && rspec spec -f documentation
+ - cd test/dummy && bundle && bundle exec rspec spec -f documentation
