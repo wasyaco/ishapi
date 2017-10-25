@@ -13,6 +13,7 @@ json.cache! key do
 
     json.is_ads_enabled         @site.is_ads_enabled
     json.play_videos_in_preview @site.play_videos_in_preview
+    json.newsitems_per_page     @site.newsitems_per_page
 
     json.partial! 'ishapi/features/index',  :features  => @site.features, :resource => @site
     json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems
