@@ -9,6 +9,8 @@ Ishapi::Engine.routes.draw do
   get 'galleries',                   :to => 'galleries#index'
   get 'galleries/view/:galleryname', :to => 'galleries#show'
 
+  post 'invoices/search', :to => 'invoices#search'
+
   namespace :my do
     post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
