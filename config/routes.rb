@@ -20,6 +20,8 @@ Ishapi::Engine.routes.draw do
     # resources :videos
   end
 
+  post 'payments', :to => 'payments#create'
+
   get 'reports', :to => 'reports#index'
   get 'reports/view/:name_seo', :to => 'reports#show'
 

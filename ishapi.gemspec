@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency "fb_graph"
   s.add_dependency "mongoid-autoinc", [ "~> 6.0" ]
   s.add_dependency "rack-throttle", [ "~> 0.5" ]
+  s.add_dependency "stripe"
 
 end
