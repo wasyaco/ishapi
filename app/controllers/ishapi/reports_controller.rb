@@ -14,6 +14,12 @@ module Ishapi
         city = City.find_by :cityname => params[:cityname]
         @reports = @reports.where( :city_id => city.id )
       end
+      if params[:domain]
+        site = Site.find_by :domain => params[:domain], :lang => :en
+        @reports = @reports.where( :site_id => site.id )
+      end
+
+      @reports = @reports.page( params[:reports_page] ).per( 10 )
     end
 
   end

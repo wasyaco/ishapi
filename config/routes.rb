@@ -2,6 +2,7 @@
 Ishapi::Engine.routes.draw do
 
   root :to => 'api#home'
+  post 'home', :to => 'api#home'
 
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
@@ -25,8 +26,10 @@ Ishapi::Engine.routes.draw do
   get 'reports', :to => 'reports#index'
   get 'reports/view/:name_seo', :to => 'reports#show'
 
-  get 'sites/view/:domain',                           :to => 'sites#show',      :constraints => { :domain => /[^\/]+/ }
-  get 'sites/view/:domain/newsitems/:newsitems_page', :to => 'newsitems#index', :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain',                            :to => 'sites#show',      :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain/newsitems/:newsitems_page',  :to => 'newsitems#index', :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain/reports',                    :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain/reports/page/:reports_page', :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
 
   post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
   post 'users/profile',        :to => 'users#show'
