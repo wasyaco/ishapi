@@ -544,6 +544,9 @@ GEM
     rack (2.0.3)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
+    rack-throttle (0.5.0)
+      bundler (>= 1.0.0)
+      rack (>= 1.0.0)
     rails (5.1.4)
       actioncable (= 5.1.4)
       actionmailer (= 5.1.4)
@@ -627,6 +630,7 @@ DEPENDENCIES
   kaminari-mongoid
   mongoid
   mongoid-paperclip
+  rack-throttle
   rails (= 5.1.4)
   rspec
   rspec-rails
