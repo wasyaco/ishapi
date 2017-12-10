@@ -36,6 +36,7 @@ Ishapi::Engine.routes.draw do
   post 'users/profile/update', :to => 'users#update'
   get  'users/profile',        :to => 'users#show' # @TODO: only for testing! accessToken must be hidden
 
+  get 'venues', :to => 'venues#index'
   get 'venues/view/:venuename', :to => 'venues#show'
-
+ 
 end

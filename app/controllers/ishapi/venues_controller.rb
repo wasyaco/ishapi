@@ -5,6 +5,10 @@ module Ishapi
     def index
       authorize! :index, ::Venue
       @venues = ::Venue.all
+      if params[:cityname]
+        city = City.find_by :cityname => params[:cityname]
+        @venues = @venues.where( :city => city )
+      end
     end
 
     def show

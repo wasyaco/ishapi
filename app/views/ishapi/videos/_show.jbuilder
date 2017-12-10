@@ -15,5 +15,5 @@ if video.tag
 end
 
 if video.user_profile
-  json.username video.user_profile.username
+  json.username video.user_profile.name
 end
