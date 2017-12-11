@@ -30,6 +30,9 @@ Ishapi::Engine.routes.draw do
   get 'sites/view/:domain/newsitems/:newsitems_page',  :to => 'newsitems#index', :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/reports',                    :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/reports/page/:reports_page', :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
+  get 'sites/view/:domain/tags',                       :to => 'tags#index',      :constraints => { :domain => /[^\/]+/ }
+
+  get 'tags/view/:tagname', :to => 'tags#show'
 
   post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
   post 'users/profile',        :to => 'users#show'

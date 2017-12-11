@@ -39,6 +39,11 @@ class Ishapi::Ability
 
     can [ :index, :show ], Site
 
+    can [ :index ], Tag
+    can [ :show ], Tag do |tag|
+      tag.is_public
+    end
+
     can [ :index ], Venue
     can [ :show ], Venue do |venue|
       venue.is_public
