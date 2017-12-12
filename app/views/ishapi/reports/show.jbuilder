@@ -3,7 +3,8 @@
 # ishapi / reports / show
 #
 
-key = [ @report, params.permit! ]
+params.permit!
+key = [ @report, params ]
 json.cache! key do
   json.report do
     json.id          @report.id.to_s
@@ -17,7 +18,7 @@ json.cache! key do
     # @TODO: move this to meta
     json.created_at  @report.created_at.strftime('%Y%m%d')
     json.updated_at  @report.updated_at.strftime('%Y%m%d')
-    json.username    @report.username
+    json.username    @report.user_profile.name
     json.cityname    @report.city.cityname if @report.city
     json.tagname     @report.tag.name_seo  if @report.tag
 
