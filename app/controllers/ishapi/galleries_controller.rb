@@ -9,6 +9,7 @@ module Ishapi
         city = City.find_by :cityname => params[:cityname]
         @galleries = @galleries.where( :city => city )
       end
+      @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
     end
 
     def show

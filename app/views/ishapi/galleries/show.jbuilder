@@ -9,6 +9,7 @@ json.cache! this_key do
     json.id @gallery.id.to_s
     json.name @gallery.name
     json.galleryname @gallery.galleryname
+    json.description @gallery.descr
     json.partial! 'ishapi/photos/index', :photos => @gallery.photos
   end
 end
