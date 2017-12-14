@@ -24,7 +24,7 @@ json.newsitems do
       json.reportname item.report.name_seo
       json.descr      item.report.subhead
       json.report_id  item.report_id.to_s
-      json.username   item.report.user_profile.name
+      json.username   item.report.user_profile.name if item.report.user_profile
       if item.report.photo
         json.photo_url item.report.photo.photo.url( :small ) 
         json.thumb_url item.report.photo.photo.url( :thumb )
