@@ -10,6 +10,8 @@ json.cache! key do
     json.domain    @site.domain
     json.lang      @site.lang
     json.langs     @langs
+    json.title     @site.title
+    json.subhead   @site.subhead
 
     json.is_ads_enabled         @site.is_ads_enabled
     json.play_videos_in_preview @site.play_videos_in_preview
