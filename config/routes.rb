@@ -5,6 +5,9 @@ Ishapi::Engine.routes.draw do
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
 
+  namespace :co_tailors do
+  end
+
   get 'galleries',                   :to => 'galleries#index'
   get 'galleries/view/:galleryname', :to => 'galleries#show'
 
@@ -31,6 +34,9 @@ Ishapi::Engine.routes.draw do
   get 'sites/view/:domain/tags',                       :to => 'tags#index',      :constraints => { :domain => /[^\/]+/ }
 
   get 'tags/view/:tagname', :to => 'tags#show'
+
+  namespace :tgm do
+  end
 
   post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
   post 'users/profile',        :to => 'users#show'

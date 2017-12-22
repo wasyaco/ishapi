@@ -16,12 +16,14 @@ module Ishapi
       accessToken ||= params[:fb_long_access_token]
       accessToken ||= params[:accessToken] # if (params[:debug] == 'abba' && Rails.env.development?)
 
+      params[:domain] ||= '_default'
+
       if accessToken
         begin
           @graph            = Koala::Facebook::API.new( accessToken )
           @me               = @graph.get_object( 'me', :fields => 'email' )
           @user             = User.find_or_create_by :email => @me['email']
-          @oauth            = Koala::Facebook::OAuth.new( CO_TAILORS_FB_APP_ID, CO_TAILORS_FB_APP_SECRET )
+          @oauth            = Koala::Facebook::OAuth.new( FB[params['domain']][:app], FB[params['domain']][:secret] )
           @long_lived_token = get_long_token( accessToken )
 
           begin
@@ -47,7 +49,7 @@ module Ishapi
     
     def get_long_token accessToken
       url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&" +
-            "client_id=#{FB_APP_ID}&client_secret=#{FB_APP_SECRET}&fb_exchange_token=#{accessToken}"
+            "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&fb_exchange_token=#{accessToken}"
       result = HTTParty.get url
       token  = JSON.parse result.body
       puts! token['access_token'], "long access token is"
