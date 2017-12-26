@@ -8,6 +8,8 @@ Ishapi::Engine.routes.draw do
   namespace :co_tailors do
   end
 
+  get 'events/view/:eventname',      :to => 'events#show'
+
   get 'galleries',                   :to => 'galleries#index'
   get 'galleries/view/:galleryname', :to => 'galleries#show'
 

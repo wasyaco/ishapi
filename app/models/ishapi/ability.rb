@@ -25,6 +25,8 @@ class Ishapi::Ability
 
     can [ :index, :show ], City
     
+    can [ :index, :show ], Event
+
     can [ :index ], Gallery
     can [ :show ], Gallery do |gallery|
       gallery.is_public
