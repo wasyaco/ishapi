@@ -18,7 +18,10 @@ json.cache! key do
     json.newsitems_per_page     @site.newsitems_per_page
 
     json.partial! 'ishapi/features/index',  :features  => @site.features, :resource => @site
-    json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems
+    json.partial! 'ishapi/galleries/index', :galleries => @galleries,     :resource => @site
+    json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems,     :resource => @site
+    json.partial! 'ishapi/reports/index',   :reports   => @reports,       :resource => @site
     json.partial! 'ishapi/videos/index',    :videos    => @site.videos
+    
   end
 end

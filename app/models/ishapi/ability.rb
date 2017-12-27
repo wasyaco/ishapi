@@ -50,5 +50,9 @@ class Ishapi::Ability
     can [ :show ], Venue do |venue|
       venue.is_public
     end
+    can [ :index ], Video
+    can [ :show ], Video do |video|
+      video.is_public
+    end
   end
 end

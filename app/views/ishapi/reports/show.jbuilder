@@ -18,7 +18,7 @@ json.cache! key do
     # @TODO: move this to meta
     json.created_at  @report.created_at.strftime('%Y%m%d')
     json.updated_at  @report.updated_at.strftime('%Y%m%d')
-    json.username    @report.user_profile.name
+    json.username    @report.user_profile.name if @report.user_profile
     json.cityname    @report.city.cityname if @report.city
     json.tagname     @report.tag.name_seo  if @report.tag
 

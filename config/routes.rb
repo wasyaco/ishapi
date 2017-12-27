@@ -48,4 +48,6 @@ Ishapi::Engine.routes.draw do
   get 'venues', :to => 'venues#index'
   get 'venues/view/:venuename', :to => 'venues#show'
  
+  resources :videos
+
 end

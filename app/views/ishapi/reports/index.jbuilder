@@ -5,7 +5,6 @@
 
 json.array! @reports do |report|
   json.created_at  report.created_at
-
   json.id          report.id.to_s
   json.name        report.name
   json.reportname  report.name_seo
@@ -15,4 +14,5 @@ json.array! @reports do |report|
     json.photo      report.photo.photo.url( :thumb )
   end
 end
+
 
