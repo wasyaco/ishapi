@@ -4,7 +4,10 @@
 #
 
 if item.city
-  json.city_name item.city.name
+  json.city do
+    json.name item.city.name
+  end
+  json.cityname item.city.cityname
 end
 if item.tag
   json.tag_name item.tag.name
