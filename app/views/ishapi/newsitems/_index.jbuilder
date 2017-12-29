@@ -6,9 +6,10 @@
 json.n_newsitems newsitems.count
 json.newsitems do
   json.array! newsitems do |item|
-    json.created_at item.created_at
-    json.descr item.descr
-    json.name      item.name
+    json.created_at  item.created_at
+    json.descr       item.descr
+    json.description item.descr
+    json.name        item.name
     
     if item.gallery
       json.item_type  'gallery' #@TODO: should be a constant
