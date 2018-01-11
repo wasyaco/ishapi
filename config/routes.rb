@@ -2,6 +2,8 @@ Ishapi::Engine.routes.draw do
   root :to => 'api#home'
   post 'home', :to => 'api#home'
 
+  resources :addresses
+
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
 

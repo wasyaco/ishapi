@@ -11,6 +11,19 @@ module Ishapi
     #
     private
 
+    # this doesn't generate long-lived token, doesn't update user_profile
+    def check_profile
+      accessToken   = request.headers[:accessToken]
+      accessToken ||= params[:fb_long_access_token]
+      accessToken ||= params[:accessToken] # if (params[:debug] == 'abba' && Rails.env.development?)
+      if accessToken
+        @graph            = Koala::Facebook::API.new( accessToken )
+        @me               = @graph.get_object( 'me', :fields => 'email' )
+        @current_user     = User.find_by :email => @me['email']
+        @current_profile  = @current_user.profile
+      end
+    end
+
     def set_profile
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
@@ -24,19 +37,23 @@ module Ishapi
           @me               = @graph.get_object( 'me', :fields => 'email' )
           @user             = User.find_or_create_by :email => @me['email']
           @oauth            = Koala::Facebook::OAuth.new( FB[params['domain']][:app], FB[params['domain']][:secret] )
-          @long_lived_token = get_long_token( accessToken )
+          get_token         = get_long_token( accessToken )
+          @long_lived_token = get_token['access_token']
 
           begin
             @profile = IshModels::UserProfile.find_by :email => @me['email']
             @profile.update_attributes({ :fb_access_token      => @long_lived_token,
-                                         :fb_long_access_token => @long_lived_token })
+                                         :fb_long_access_token => @long_lived_token,
+                                         :fb_expires_in        => get_token['expires_in']
+                                       })
           rescue Mongoid::Errors::DocumentNotFound
             @profile = IshModels::UserProfile.create :user => @user, :email => @me['email'],
-                                      :fb_access_token       => @long_lived_token,
-                                      :fb_long_access_token  => @long_lived_token,
-                                      :fb_id                 => params[:id],
-                                      :name                  => params[:name],
-                                      :signed_request        => params[:signedRequest]
+                                                     :fb_access_token       => @long_lived_token,
+                                                     :fb_long_access_token  => @long_lived_token,
+                                                     :fb_expires_in         => get_token['expires_in'],
+                                                     :fb_id                 => params[:id],
+                                                     :name                  => params[:name],
+                                                     :signed_request        => params[:signedRequest]
           end
           @current_user    = @user
           @current_profile = @profile
@@ -52,8 +69,7 @@ module Ishapi
             "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&fb_exchange_token=#{accessToken}"
       result = HTTParty.get url
       token  = JSON.parse result.body
-      puts! token['access_token'], "long access token is"
-      return token['access_token']
+      return token # ['access_token']
     end
 
     def set_current_ability

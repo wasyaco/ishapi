@@ -16,6 +16,12 @@ class Ishapi::Ability
       can [ :show ], Gallery do |gallery|
         gallery.user == user
       end
+
+
+      can [ :update ], CoTailors::Address do |address|
+        puts [ user.inspect, address.inspect ], '+++ user in cancancan'
+        true
+      end
       
     end
     #
@@ -24,6 +30,8 @@ class Ishapi::Ability
     user ||= User.new
 
     can [ :index, :show ], City
+
+    can [ :update ], CoTailors::Address
     
     can [ :index, :show ], Event
 
