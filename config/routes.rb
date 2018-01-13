@@ -7,6 +7,8 @@ Ishapi::Engine.routes.draw do
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
 
+  post 'co_tailors/orders',      :to => 'orders#create'
+  post 'co_tailors/order_items', :to => 'order_items#create'
   namespace :co_tailors do
   end
 

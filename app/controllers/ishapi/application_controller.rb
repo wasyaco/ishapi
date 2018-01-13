@@ -21,6 +21,7 @@ module Ishapi
         @me               = @graph.get_object( 'me', :fields => 'email' )
         @current_user     = User.find_by :email => @me['email']
         @current_profile  = @current_user.profile
+        @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
       end
     end
 
@@ -55,8 +56,9 @@ module Ishapi
                                                      :name                  => params[:name],
                                                      :signed_request        => params[:signedRequest]
           end
-          @current_user    = @user
-          @current_profile = @profile
+          @current_user     = @user
+          @current_profile  = @profile
+          @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
         rescue Koala::Facebook::AuthenticationError => e
           render :json => { :status => :not_ok, :errors => "Probably expired token: #{accessToken}" }
           return

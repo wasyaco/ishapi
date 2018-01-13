@@ -32,6 +32,8 @@ class Ishapi::Ability
     can [ :index, :show ], City
 
     can [ :update ], CoTailors::Address
+    can [ :add ], CoTailors::OrderItem
+    can [ :create ], CoTailors::Order
     
     can [ :index, :show ], Event
 
