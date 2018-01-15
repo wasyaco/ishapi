@@ -12,17 +12,17 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.60)
+    ishapi (0.1.8.61)
       cancancan (~> 2.0)
       fb_graph
-      jbuilder (~> 2.7.0)
+      jbuilder (~> 2.7)
       kaminari-actionview (~> 1.0)
       kaminari-mongoid (~> 1.0)
       koala (~> 3.0)
-      mongoid (~> 6.1.0)
+      mongoid (~> 6.1)
       mongoid-autoinc (~> 6.0)
       rack-throttle (~> 0.5)
-      rails (~> 5.1.0)
+      rails (~> 5.1)
       stripe
 
 GEM
