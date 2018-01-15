@@ -18,7 +18,7 @@ class Ishapi::Ability
       end
 
 
-      can [ :update ], CoTailors::Address do |address|
+      can [ :update ], ::CoTailors::Address do |address|
         puts [ user.inspect, address.inspect ], '+++ user in cancancan'
         true
       end
@@ -31,9 +31,9 @@ class Ishapi::Ability
 
     can [ :index, :show ], City
 
-    can [ :update ], CoTailors::Address
-    can [ :add ], CoTailors::OrderItem
-    can [ :create ], CoTailors::Order
+    can [ :update ], ::CoTailors::Address
+    can [ :add ], ::CoTailors::OrderItem
+    can [ :create ], ::CoTailors::Order
     
     can [ :index, :show ], Event
 

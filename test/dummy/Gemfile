@@ -3,7 +3,10 @@ source 'https://rubygems.org'
 gem 'rails', '5.1.4'
 gem 'mongoid'
 gem 'mongoid-paperclip'
-gem 'ish_models'
+
+#gem 'ish_models'
+gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
+
 gem 'cancancan'
 gem 'kaminari'
 gem 'kaminari-mongoid'
@@ -11,6 +14,7 @@ gem 'kaminari-actionview'
 gem 'devise'
 gem 'aws-sdk'
 gem 'rack-throttle'
+# gem 'jbuilder' # should be in ishapi, not here.
 
 # for travis dependencies
 =begin
@@ -31,4 +35,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'byebug'
 end

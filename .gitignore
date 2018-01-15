@@ -20,3 +20,4 @@ test/dummy/config/initializers/s3.rb
 
 /config/initializers/koala.rb
 
+.byebug_history

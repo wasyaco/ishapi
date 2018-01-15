@@ -1,6 +1,6 @@
 
 #
-# ishapi / users / _show.jbuilder
+# ishapi / users / show.jbuilder
 #
 
 json.email                @current_profile.email
@@ -20,3 +20,4 @@ if @current_profile.addresses[0]
 end
 
 json.partial! 'ishapi/orders/show', :order => @current_order
+

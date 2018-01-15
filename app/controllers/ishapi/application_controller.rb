@@ -22,6 +22,8 @@ module Ishapi
         @current_user     = User.find_by :email => @me['email']
         @current_profile  = @current_user.profile
         @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
+      else
+        @current_user = current_user if Rails.env.test?
       end
     end
 
@@ -63,6 +65,8 @@ module Ishapi
           render :json => { :status => :not_ok, :errors => "Probably expired token: #{accessToken}" }
           return
         end
+      else
+        @current_user = current_user if Rails.env.test?
       end
     end
     

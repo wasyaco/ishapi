@@ -1,4 +1,5 @@
 require_dependency "ishapi/application_controller"
+
 module Ishapi
   class GalleriesController < ApplicationController
 

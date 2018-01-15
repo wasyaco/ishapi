@@ -10,7 +10,9 @@ require "rails/test_unit/railtie"
 require_relative './initializers/00_s3.rb'
 
 Bundler.require(*Rails.groups)
+require 'ish_models'
 require "ishapi"
+require 'jbuilder'
 
 module Dummy
   class Application < Rails::Application

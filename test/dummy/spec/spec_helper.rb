@@ -22,6 +22,7 @@ class UserStub
     if args[:manager]
       @profile[:manager?] = true
     end
+    @profile.measurements = CoTailors::ProfileMeasurement.new :neck_around => 1
   end
 
   def profile= profile
@@ -30,5 +31,10 @@ class UserStub
 
   def profile
     return @profile
+  end
+end
+
+class ProfileStub
+  def initialie args = {}
   end
 end
