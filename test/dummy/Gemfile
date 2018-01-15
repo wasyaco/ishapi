@@ -14,7 +14,7 @@ gem 'kaminari-actionview'
 gem 'devise'
 gem 'aws-sdk'
 gem 'rack-throttle'
-# gem 'jbuilder' # should be in ishapi, not here.
+gem 'jbuilder' # @TODO should be in ishapi, not here.
 
 # for travis dependencies
 =begin
@@ -36,4 +36,5 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'byebug'
+  gem 'factory_girl_rails'
 end

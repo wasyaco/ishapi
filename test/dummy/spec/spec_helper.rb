@@ -18,11 +18,14 @@ end
 
 class UserStub
   def initialize args = {}
-    @profile = OpenStruct.new
+    @profile    = IshModels::UserProfile.find_or_create_by( :email => 'test@gmail.com' )
+    @profile.user ||= FactoryGirl.create :user
+    # address     = CoTailors::Address.find_or_create_by( :name => 'abba-addr', :address_1 => 'blahblah 1' )
+    # measurement = CoTailors::ProfileMeasurement.create :neck_around => 22.2
+    # order       = CoTailors::Order.create
     if args[:manager]
-      @profile[:manager?] = true
+      @profile.email = 'manager@gmail.com'; @profile.save
     end
-    @profile.measurements = CoTailors::ProfileMeasurement.new :neck_around => 1
   end
 
   def profile= profile
@@ -34,7 +37,14 @@ class UserStub
   end
 end
 
-class ProfileStub
-  def initialie args = {}
-  end
+def do_setup
+  User.unscoped.destroy
+  IshModels::UserProfile.unscoped.destroy
+  Gallery.unscoped.destroy
+  @fake_profile = IshModels::UserProfile.create :email => 'test@gmail.com', :user => @face_user
+  @fake_user = User.create :email => 'test@gmail.com', :password => '123412341234', :profile => @fake_profile
+  @fake_measurements = CoTailors::ProfileMeasurement.create :neck_around => 22.2, 
+                                                            :units => CoTailors::ProfileMeasurement::UNITS_INCHES,
+                                                            :profile => @fake_profile
+  @fake_address = CoTailors::Address.create :name => 'addr-name', :address_1 => 'addr-1', :profile => @fake_profile
 end

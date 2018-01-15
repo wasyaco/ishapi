@@ -1,7 +1,7 @@
 
 require 'rubygems'
 require 'rack/throttle'
-require 'jbuilder'
+# require 'jbuilder'
 
 module Ishapi
   class Engine < ::Rails::Engine

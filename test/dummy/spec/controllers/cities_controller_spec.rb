@@ -4,6 +4,7 @@ describe Ishapi::CitiesController do
   render_views
   routes { Ishapi::Engine.routes }
   before :each do
+    do_setup
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => false }))
   end
 

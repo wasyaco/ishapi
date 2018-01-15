@@ -20,11 +20,11 @@ module Ishapi
         @graph            = Koala::Facebook::API.new( accessToken )
         @me               = @graph.get_object( 'me', :fields => 'email' )
         @current_user     = User.find_by :email => @me['email']
-        @current_profile  = @current_user.profile
-        @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
       else
-        @current_user = current_user if Rails.env.test?
+        @current_user = current_user  if Rails.env.test?
       end
+      @current_profile  = @current_user.profile
+      @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
     end
 
     def set_profile
@@ -38,29 +38,27 @@ module Ishapi
         begin
           @graph            = Koala::Facebook::API.new( accessToken )
           @me               = @graph.get_object( 'me', :fields => 'email' )
-          @user             = User.find_or_create_by :email => @me['email']
+          @current_user     = User.find_or_create_by :email => @me['email']
           @oauth            = Koala::Facebook::OAuth.new( FB[params['domain']][:app], FB[params['domain']][:secret] )
           get_token         = get_long_token( accessToken )
           @long_lived_token = get_token['access_token']
 
           begin
-            @profile = IshModels::UserProfile.find_by :email => @me['email']
-            @profile.update_attributes({ :fb_access_token      => @long_lived_token,
+            @current_profile = IshModels::UserProfile.find_by :email => @me['email']
+            @current_profile.update_attributes({ :fb_access_token      => @long_lived_token,
                                          :fb_long_access_token => @long_lived_token,
                                          :fb_expires_in        => get_token['expires_in']
                                        })
           rescue Mongoid::Errors::DocumentNotFound
-            @profile = IshModels::UserProfile.create :user => @user, :email => @me['email'],
-                                                     :fb_access_token       => @long_lived_token,
-                                                     :fb_long_access_token  => @long_lived_token,
-                                                     :fb_expires_in         => get_token['expires_in'],
-                                                     :fb_id                 => params[:id],
-                                                     :name                  => params[:name],
-                                                     :signed_request        => params[:signedRequest]
+            @current_profile = IshModels::UserProfile.create :user => @current_user, :email => @me['email'],
+                                                             :fb_access_token       => @long_lived_token,
+                                                             :fb_long_access_token  => @long_lived_token,
+                                                             :fb_expires_in         => get_token['expires_in'],
+                                                             :fb_id                 => params[:id],
+                                                             :name                  => params[:name],
+                                                             :signed_request        => params[:signedRequest]
           end
-          @current_user     = @user
-          @current_profile  = @profile
-          @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
+          @current_user.reload
         rescue Koala::Facebook::AuthenticationError => e
           render :json => { :status => :not_ok, :errors => "Probably expired token: #{accessToken}" }
           return
@@ -68,6 +66,8 @@ module Ishapi
       else
         @current_user = current_user if Rails.env.test?
       end
+      @current_profile = @current_user.profile
+      @current_order   = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
     end
     
     def get_long_token accessToken
