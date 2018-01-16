@@ -5,17 +5,35 @@ module Ishapi
     before_action :check_profile, :only => [ :create ]
 
     def create
+      authorize! :add, CoTailors::OrderItem
+      @order_item = CoTailors::OrderItem.new params['order_item'].permit( :quantity )
+      @order_item.order_id = @current_order.id
+
+      if params[:order_item][:saveMeasurement]
+        m = @current_profile.measurements[0] || CoTailors::ProfileMeasurement.create( :profile => @current_profile )
+        flag = m.update_attributes( measurement_params )
+        render :json => { :statuc => :not_ok, :error => m.errors.messages } and return if !flag
+      end
+      
       # byebug
 
-      authorize! :add, CoTailors::OrderItem
-      @order_item = CoTailors::OrderItem.new params['order_item'].permit!
-      @order_item.order_id = @current_order.id
       flag = @order_item.save
       if flag
         render :json => { :status => :ok, :message => 'Successfully put an order item' }
       else
         render :json => { :status => :not_ok, :error => @order_item.errors.messages }
       end
+    end
+
+    #
+    # private
+    #
+    private
+
+    def measurement_params
+      out = {}
+      out[:neck_around] = params[:order_item][:neckAround] if params[:order_item][:neckAround]
+      out
     end
 
   end
