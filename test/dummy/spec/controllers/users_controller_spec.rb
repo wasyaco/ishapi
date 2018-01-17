@@ -19,7 +19,15 @@ describe Ishapi::UsersController do
     get :show, :format => :json
     response.should be_success
     result = JSON.parse response.body
-    result['measurements'].should_not eql nil
+    result['measurement'].should_not eql nil
+  end
+
+  it '#show, has cart' do
+    @fake_user.profile.current_order.items << CoTailors::OrderItem.create
+    @fake_user.save
+    get :show, :format => :json
+    result = JSON.parse response.body
+    result['order'].should_not eql nil
   end
 
 end

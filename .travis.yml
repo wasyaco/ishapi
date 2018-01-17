@@ -3,4 +3,6 @@ install: true
 install_trash:
  - bundle install --gemfile=test/dummy/Gemfile
 script:
- - cd test/dummy && bundle install --gemfile=./Gemfile && bundle exec rspec spec -f documentation
+ - cd test/dummy
+ - bundle install --gemfile=./Gemfile --path vendor/bundle
+ - bundle exec rspec spec -f documentation

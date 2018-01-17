@@ -15,24 +15,25 @@ module Ishapi
     def check_profile
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
-      accessToken ||= params[:accessToken] # if (params[:debug] == 'abba' && Rails.env.development?)
+      accessToken ||= params[:accessToken]
       if accessToken
         @graph            = Koala::Facebook::API.new( accessToken )
         @me               = @graph.get_object( 'me', :fields => 'email' )
         @current_user     = User.find_by :email => @me['email']
       else
-        @current_user = current_user  if Rails.env.test?
+        @current_user     = current_user  if Rails.env.test?
       end
       @current_profile  = @current_user.profile
-      @current_order    = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
+      @current_order    = @current_profile.current_order
+      # orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
     end
 
     def set_profile
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
-      accessToken ||= params[:accessToken] # if (params[:debug] == 'abba' && Rails.env.development?)
+      accessToken ||= params[:accessToken]
 
-      params[:domain] ||= '_default'
+      # params[:domain] ||= '_default'
 
       if accessToken
         begin
@@ -67,7 +68,8 @@ module Ishapi
         @current_user = current_user if Rails.env.test?
       end
       @current_profile = @current_user.profile
-      @current_order   = @current_profile.orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
+      @current_order   = @current_profile.current_order
+      # orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
     end
     
     def get_long_token accessToken
