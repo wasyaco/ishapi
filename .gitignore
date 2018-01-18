@@ -1,10 +1,14 @@
-.bundle/
+/.bundle
+/vendor
+
 log/*.log
 pkg/
 test/dummy/db/*.sqlite3
 test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
+test/dummy/config/initializers/00_s3.rb
+test/dummy/config/initializers/s3.rb
 
 *~
 *.trash
@@ -12,11 +16,6 @@ test/dummy/tmp/
 .#*
 
 ishapi-0.1*gem
-/vendor
-/test/dummy/vendor
-
-test/dummy/config/initializers/00_s3.rb
-test/dummy/config/initializers/s3.rb
 
 /config/initializers/koala.rb
 

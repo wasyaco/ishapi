@@ -1,0 +1,19 @@
+current directory: /home/piousbox/projects/ruby/microsites3/ishapi/test/dummy/vendor/bundle/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+/home/piousbox/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180115-10719-1nhh4xj.rb extconf.rb
+creating Makefile
+
+current directory: /home/piousbox/projects/ruby/microsites3/ishapi/test/dummy/vendor/bundle/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /home/piousbox/projects/ruby/microsites3/ishapi/test/dummy/vendor/bundle/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling threads.c
+compiling locker.c
+compiling byebug.c
+compiling context.c
+linking shared-object byebug/byebug.so
+
+current directory: /home/piousbox/projects/ruby/microsites3/ishapi/test/dummy/vendor/bundle/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20180115-10719-re1jz3/byebug

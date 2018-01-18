@@ -4,4 +4,4 @@ install_trash:
  - bundle install --gemfile=test/dummy/Gemfile
 script:
  - cd test/dummy && bundle install --gemfile=./Gemfile --path vendor/bundle
- - cd test/dummy && bundle exec rspec spec -f documentation
+ - RAILS_ENV=test bundle exec rspec spec -f documentation
