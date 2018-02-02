@@ -16,10 +16,11 @@ module Ishapi
       @site = ::Site.find_by :domain => domain, :lang => :en
       authorize! :show, @site
 
-      @galleries = @site.galleries.limit( 10 )
-      @newsitems = @site.newsitems.limit(10)
-      @reports   = @site.reports.limit( 10 )
-      @langs = ::Site.where( :domain => domain ).map( &:lang )
+      @galleries    = @site.galleries.limit( 10 )
+      @newsitems    = @site.newsitems.limit(10)
+      @reports      = @site.reports.limit( 10 )
+      @langs        = ::Site.where( :domain => domain ).map( &:lang )
+      @feature_tags = @site.tags.where( :is_feature => true )
     end
 
   end
