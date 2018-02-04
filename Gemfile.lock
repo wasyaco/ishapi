@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: 58c9a99e9affbef476d7b63b5113583ca6fa8331
+  revision: a0a68fcaba161379a793addc1846a5ac762efa35
   branch: master
   specs:
     ish_models (0.0.33.58)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.64)
+    ishapi (0.1.8.65)
       cancancan (~> 2.0)
       fb_graph
       jbuilder (~> 2.7)
