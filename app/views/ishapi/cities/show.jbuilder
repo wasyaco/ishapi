@@ -22,5 +22,6 @@ json.cache! key do
     json.partial! 'ishapi/users/index',     :users     => @city.current_users
     json.partial! 'ishapi/venues/index',    :venues    => @city.venues
     json.partial! 'ishapi/videos/index',    :videos    => @city.videos
+    json.partial! 'ishapi/tags/index',      :tags      => @city.tags
   end
 end

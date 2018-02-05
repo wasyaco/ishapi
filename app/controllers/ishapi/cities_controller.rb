@@ -8,6 +8,12 @@ module Ishapi
       @cities = City.all
     end
 
+    def features
+      authorize! :index, City
+      @cities = City.where( :is_feature => true )
+      render 'index'
+    end
+
     def show
       @city = City.find_by :cityname => params[:cityname]
       authorize! :show, @city

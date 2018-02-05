@@ -6,6 +6,7 @@ Ishapi::Engine.routes.draw do
 
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
+  get 'cities/features',       :to => 'cities#features'
 
   post 'co_tailors/orders',      :to => 'orders#create'
   post 'co_tailors/order_items', :to => 'order_items#create'
@@ -29,6 +30,8 @@ Ishapi::Engine.routes.draw do
   end
 
   post 'payments', :to => 'payments#create'
+
+  get 'profiles/view/:username', :to => 'user_profiles#show'
 
   get 'reports', :to => 'reports#index'
   get 'reports/view/:name_seo', :to => 'reports#show'
