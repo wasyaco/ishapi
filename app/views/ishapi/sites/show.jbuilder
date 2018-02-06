@@ -6,12 +6,13 @@
 key = [ @site, params.permit! ]
 json.cache! key do
   json.site do
-    json.id        @site.id.to_s
-    json.domain    @site.domain
-    json.lang      @site.lang
-    json.langs     @langs
-    json.title     @site.title
-    json.subhead   @site.subhead
+    json.id          @site.id.to_s
+    json.domain      @site.domain
+    json.lang        @site.lang
+    json.langs       @langs
+    json.title       @site.title
+    json.subhead     @site.subhead
+    json.description @site.description
 
     json.is_ads_enabled         @site.is_ads_enabled
     json.play_videos_in_preview @site.play_videos_in_preview
