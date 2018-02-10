@@ -12,5 +12,6 @@ json.venues do
     json.description venue.descr
     json.x           venue.x
     json.y           venue.y
+    json.photo       venue.profile_photo.photo.url( :thumb ) if venue.profile_photo
   end
 end
