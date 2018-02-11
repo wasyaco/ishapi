@@ -11,7 +11,6 @@ module Ishapi
     def features
       authorize! :index, City
       @cities = City.where( :is_feature => true )
-      render 'index'
     end
 
     def show

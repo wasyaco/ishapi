@@ -14,7 +14,11 @@ describe Ishapi::CitiesController do
   end
 
   it '#features' do
-    raise 'not implemented'
+    get :features
+    results = assigns( :cities )
+    results.length.should eql City.where( :is_feature => true ).count
+    results.length.should_not eql City.count
+    results.map(:is_feature).uniq.should eql([ true ])
   end
 
   it '#show' do

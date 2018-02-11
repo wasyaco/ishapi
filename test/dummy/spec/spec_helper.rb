@@ -48,5 +48,6 @@ def do_setup
   @fake_address = CoTailors::Address.create :name => 'addr-name', :address_1 => 'addr-1', :profile => @fake_profile
 
   City.unscoped.destroy
-  @city = City.create( :name => 'xx-test-city', :cityname => 'text-cityname' )
+  @city         = City.create( :name => 'xx-test-city', :cityname => 'text-cityname' )
+  @feature_city = City.create( :name => 'feature city', :cityname => 'feature-city', :is_feature => true )
 end
