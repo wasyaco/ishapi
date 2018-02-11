@@ -4,7 +4,6 @@ gem 'rails', '5.1.4'
 gem 'mongoid'
 gem 'mongoid-paperclip'
 
-#gem 'ish_models'
 gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
 
 gem 'cancancan'
@@ -15,6 +14,7 @@ gem 'devise'
 gem 'aws-sdk'
 gem 'rack-throttle'
 gem 'jbuilder' # @TODO should be in ishapi, not here.
+gem 'rails-controller-testing'
 
 # for travis dependencies
 =begin
@@ -36,5 +36,5 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'byebug'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 end

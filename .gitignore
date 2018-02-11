@@ -9,6 +9,7 @@ test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/config/initializers/00_s3.rb
 test/dummy/config/initializers/s3.rb
+test/dummy/vendor
 
 *~
 *.trash

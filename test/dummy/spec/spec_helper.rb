@@ -7,7 +7,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Devise::TestHelpers, :type => :helper
-  config.include Devise::TestHelpers, :type => :controller
   config.include Devise::Test::ControllerHelpers, :type => :controller
 end
 
@@ -19,7 +18,7 @@ end
 class UserStub
   def initialize args = {}
     @profile    = IshModels::UserProfile.find_or_create_by( :email => 'test@gmail.com' )
-    @profile.user ||= FactoryGirl.create :user
+    @profile.user ||= FactoryBot.create :user
     # address     = CoTailors::Address.find_or_create_by( :name => 'abba-addr', :address_1 => 'blahblah 1' )
     # measurement = CoTailors::ProfileMeasurement.create :neck_around => 22.2
     # order       = CoTailors::Order.create
@@ -47,4 +46,7 @@ def do_setup
                                                             :units => CoTailors::ProfileMeasurement::UNITS_INCHES,
                                                             :profile => @fake_profile
   @fake_address = CoTailors::Address.create :name => 'addr-name', :address_1 => 'addr-1', :profile => @fake_profile
+
+  City.unscoped.destroy
+  @city = City.create( :name => 'xx-test-city', :cityname => 'text-cityname' )
 end
