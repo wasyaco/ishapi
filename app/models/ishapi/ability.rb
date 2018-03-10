@@ -17,12 +17,11 @@ class Ishapi::Ability
         gallery.user == user
       end
 
-
       can [ :update ], ::CoTailors::Address do |address|
         puts [ user.inspect, address.inspect ], '+++ user in cancancan'
         true
       end
-      
+
     end
     #
     # anonymous user
@@ -33,8 +32,8 @@ class Ishapi::Ability
 
     can [ :update ], ::CoTailors::Address
     can [ :add ], ::CoTailors::OrderItem
-    can [ :create ], ::CoTailors::Order
-    
+    can [ :create, :update_measurements ], ::CoTailors::Order
+
     can [ :index, :show ], Event
 
     can [ :index ], Gallery
