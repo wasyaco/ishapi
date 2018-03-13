@@ -6,7 +6,6 @@ module Ishapi
 
     def create
       authorize! :add, CoTailors::OrderItem
-      @measurement = CoTailors::ProfileMeasurement.create params['order_item'].permit( :neck_around )
       @order_item = CoTailors::OrderItem.new params['order_item'].permit( :quantity, :kind, :fabric )
       @order_item.order_id = @current_order.id
       @order_item.measurement = @measurement
@@ -18,8 +17,7 @@ module Ishapi
                          when CoTailors::OrderItem::KIND_SUIT
                            CoTailors::Suit.cost
                          end
-      @measurement.order_item_id = @order_item.id
-      @measurement.save
+      @order_item.measurement = CoTailors::ProfileMeasurement.create params['order_item'].permit( CoTailors::Order::MEASUREMENT_PARAMS )
 
       # byebug
 
@@ -34,7 +32,6 @@ module Ishapi
       
       flag = @order_item.save
       if flag
-        puts! @order_item.measurement, 'ok'
         render :json => { :status => :ok, :message => 'Successfully put an order item' }
       else
         render :json => { :status => :not_ok, :error => @order_item.errors.messages }

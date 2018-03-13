@@ -9,12 +9,10 @@ describe Ishapi::MeasurementsController do
   end
 
   it '#update - saves the measurement, heh' do
-    raise 'not implemented'
-    post :create, :params => { :order_item => { :fabric => 'white', :quantity => 2, :neck_around => 2.34 } }, :format => :json
-    response.should be_success
-    @fake_user.profile.current_order.items.length.should eql 1
-    item = @fake_user.profile.current_order.items.first
-    item.measurement.neck_around.should eql 2.34
+    @fake_user.profile.measurement.neck_around.should_not eql 5.55
+    post :update, :params => { :measurement => { :neck_around => 5.55, :shoulder_width => 2.22 } }, :format => :json
+    @fake_user.reload
+    @fake_user.profile.measurement.neck_around.should eql 5.55
   end
 
 end
