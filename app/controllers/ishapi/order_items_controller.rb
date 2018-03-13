@@ -10,13 +10,26 @@ module Ishapi
       @order_item = CoTailors::OrderItem.new params['order_item'].permit( :quantity, :kind, :fabric )
       @order_item.order_id = @current_order.id
       @order_item.measurement = @measurement
+      @order_item.cost = case params[:order_item][:kind]
+                         when CoTailors::OrderItem::KIND_SHIRT
+                           CoTailors::Shirt.cost
+                         when CoTailors::OrderItem::KIND_PANTS
+                           CoTaiilors::Pant.cost
+                         when CoTailors::OrderItem::KIND_SUIT
+                           CoTailors::Suit.cost
+                         end
       @measurement.order_item_id = @order_item.id
       @measurement.save
 
+      # byebug
+
       if params[:order_item][:saveMeasurement]
-        m = @current_profile.measurements[0] || CoTailors::ProfileMeasurement.create( :profile => @current_profile )
+        m = @current_profile.measurement # || CoTailors::ProfileMeasurement.create( :profile => @current_profile )
         flag = m.update_attributes( measurement_params )
-        render :json => { :statuc => :not_ok, :error => m.errors.messages } and return if !flag
+        if !flag
+          render :json => { :statuc => :not_ok, :error => m.errors.messages }
+          return 
+        end
       end
       
       flag = @order_item.save
