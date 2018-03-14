@@ -22,12 +22,25 @@ describe Ishapi::UsersController do
     result['measurement'].should_not eql nil
   end
 
-  it '#show, has cart' do
-    @fake_user.profile.current_order.items << CoTailors::OrderItem.create
-    @fake_user.save
-    get :show, :format => :json
-    result = JSON.parse response.body
-    result['order'].should_not eql nil
+  describe '#show, cart' do
+    before :each do
+      @fake_user.profile.current_order.items << FactoryBot.create( :order_item ) # CoTailors::OrderItem.create
+      # byebug
+      @fake_user.save.should eql true
+    end
+    
+    it 'order items' do
+      get :show, :format => :json
+      result = JSON.parse response.body
+      result['order'].should_not eql nil
+    end
+
+    it 'order total' do
+      get :show, :format => :json
+      response.should render_template 'orders/_show'
+      result = JSON.parse response.body
+      result['order_total'].should_not eql nil
+    end
   end
 
 end
