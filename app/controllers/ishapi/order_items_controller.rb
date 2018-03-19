@@ -11,11 +11,11 @@ module Ishapi
       @order_item.measurement = @measurement
       @order_item.cost = case params[:order_item][:kind]
                          when CoTailors::OrderItem::KIND_SHIRT
-                           CoTailors::Shirt.cost
+                           CoTailors::Product.where( :kind => 'shirt' ).first.cost
                          when CoTailors::OrderItem::KIND_PANTS
-                           CoTaiilors::Pant.cost
+                           CoTailors::Product.where( :kind => 'pants' ).first.cost
                          when CoTailors::OrderItem::KIND_SUIT
-                           CoTailors::Suit.cost
+                           CoTailors::Product.where( :kind => 'suit' ).first.cost
                          end
       @order_item.measurement = CoTailors::ProfileMeasurement.create params['order_item'].permit( CoTailors::Order::MEASUREMENT_PARAMS )
 

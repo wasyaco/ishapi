@@ -33,6 +33,7 @@ class Ishapi::Ability
     can [ :update ], ::CoTailors::Address
     can [ :add ], ::CoTailors::OrderItem
     can [ :create, :update_measurements ], ::CoTailors::Order
+    can [ :show ], ::CoTailors::Product
 
     can [ :index, :show ], Event
 
