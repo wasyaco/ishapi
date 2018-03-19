@@ -16,10 +16,18 @@ describe Ishapi::UsersController do
   end
 
   it '#show, has measurements' do
+    CoTailors::Order::MEASUREMENT_PARAMS.each do |i|
+      @fake_profile.measurement[i].should_not eql nil
+    end
+
     get :show, :format => :json
     response.should be_success
     result = JSON.parse response.body
     result['measurement'].should_not eql nil
+
+    CoTailors::Order::MEASUREMENT_PARAMS.each do |i|
+      result['measurement'][i.to_s].should_not eql nil
+    end
   end
 
   describe '#show, cart' do

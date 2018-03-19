@@ -18,7 +18,7 @@ params = {"token"=>{"id"=>"tok_1BoLkRDpn3WurCccVNQK4pfV", "object"=>"token", "ca
       @order.submitted_at = Time.now
 
       Stripe.api_key = STRIPE_SK
-      charge = Stripe::Charge.create :amount => @order.grand_total, :currency => 'usd'
+      charge = Stripe::Charge.create :amount => @order.grand_total, :currency => 'usd', :source => params['token']['id']
       flag = charge.outcome[:type] == 'authorized'
       if !flag
         render :json => { :status => :not_ok, :message => "Something went wrong with the charge: " + charge.outcome.to_s }
