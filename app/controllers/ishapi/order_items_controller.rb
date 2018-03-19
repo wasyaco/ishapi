@@ -22,7 +22,7 @@ module Ishapi
       # byebug
 
       if params[:order_item][:saveMeasurement]
-        m = @current_profile.measurement # || CoTailors::ProfileMeasurement.create( :profile => @current_profile )
+        m = @current_profile.measurement || CoTailors::ProfileMeasurement.create( :profile => @current_profile )
         flag = m.update_attributes( measurement_params )
         if !flag
           render :json => { :statuc => :not_ok, :error => m.errors.messages }
