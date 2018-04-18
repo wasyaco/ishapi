@@ -11,25 +11,10 @@ gem 'kaminari'
 gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 gem 'devise'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 3.0'
 gem 'rack-throttle'
-gem 'jbuilder' # @TODO should be in ishapi, not here.
+gem 'jbuilder'
 gem 'rails-controller-testing'
-
-# for travis dependencies
-=begin
-gem 'i18n', '0.8.6'
-gem 'minitest', '5.10.3'
-gem 'activesupport', '5.1.4'
-gem 'public_suffix', '3.0.0'
-gem 'addressable', '2.5.2'
-gem 'attr_required', '1.0.1'
-gem 'multipart-post', '2.0.0'
-gem 'faraday', '0.13.1'
-gem 'httpclient', '2.8.3'
-gem 'multi_json', '1.12.2'
-gem 'rack-oauth2', '1.6.2'
-=end
 
 group :development, :test do
   gem 'rspec'

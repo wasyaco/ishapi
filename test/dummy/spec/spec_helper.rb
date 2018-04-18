@@ -50,4 +50,7 @@ def do_setup
   City.unscoped.destroy
   @city         = City.create( :name => 'xx-test-city', :cityname => 'text-cityname' )
   @feature_city = City.create( :name => 'feature city', :cityname => 'feature-city', :is_feature => true )
+
+  Report.unscoped.destroy
+  @report = FactoryBot.create :report
 end
