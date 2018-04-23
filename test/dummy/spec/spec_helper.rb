@@ -53,4 +53,10 @@ def do_setup
 
   Report.unscoped.destroy
   @report = FactoryBot.create :report
+
+  Tag.upscoped.destroy
+  @tag = FactoryBot.create :tag
 end
+
+Paperclip.options[:log] = false
+

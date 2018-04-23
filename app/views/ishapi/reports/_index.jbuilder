@@ -11,5 +11,14 @@ json.reports do
     json.name        report.name
     json.reportname  report.name_seo
     json.description report.descr
+
+    if report.photo
+      json.photo do
+        json.thumb_url report.photo.photo.url :thumb
+        json.small_url report.photo.photo.url :small
+        json.large_url report.photo.photo.url :large
+      end
+    end
+
   end
 end

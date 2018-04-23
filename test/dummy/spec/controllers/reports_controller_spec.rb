@@ -22,10 +22,18 @@ describe Ishapi::ReportsController do
     end
   end
 
-  it '#show' do
-    get :show, :params => { :name_seo => @report.name_seo }
-    response.should be_success
-    response.should render_template 'show'
+  context '#show' do
+    it 'renders' do
+      get :show, :params => { :name_seo => @report.name_seo }
+      response.should be_success
+      response.should render_template 'show'
+    end
+
+    it 'shows all images' do
+      get :show, :params => { :name_seo => @report.name_seo }
+      results = JSON.parse response.body
+      results['photo']['large_url'].should_not eql nil
+    end
   end
 
 end

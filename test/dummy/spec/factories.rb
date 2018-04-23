@@ -42,6 +42,11 @@ FactoryBot.define do
   factory :site do
   end
 
+  factory :tag do
+    name 'tag-name'
+    name_seo 'tagname-seo'
+  end
+
   factory :user do
     email 'test@gmail.com'
     password '12345678'
