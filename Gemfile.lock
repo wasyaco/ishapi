@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: b6e46d4820f5dc31b81e2e37900a3ba5bb59b72b
+  revision: 93bc16855d551439a9ac0d827ee575fbfc6633b5
   branch: master
   specs:
-    ish_models (0.0.33.65)
+    ish_models (0.0.33.67)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.72)
+    ishapi (0.1.8.73)
       cancancan (~> 2.0)
       fb_graph
       jbuilder (~> 2.7)
