@@ -5,9 +5,8 @@ module Ishapi
     def create
       authorize! :open_permission, ::Ishapi
       begin
-        profile = IshModels::UserProfile.find_by( :email => params[:email] )
-        invoice = Ish::Invoice.find_by( :number => params[:number] )
-        payment = Ish::Payment.new :invoice => invoice, :profile => profile, :amount => params[:amount]
+        invoice = Ish::Invoice.where( :email => params[:email], :number => params[:number] ).first
+        payment = Ish::Payment.new :invoice => invoice, :email => params[:email], :amount => params[:amount]
         amount_cents  = ( params[:amount].to_f * 100 ).to_i
 
         ::Stripe.api_key = STRIPE_SK
@@ -23,8 +22,7 @@ module Ishapi
             :account => acct,
           }
         )
-        puts! charge, 'charge'
-        # byebug
+        # puts! charge, 'charge'
 
         payment.charge = JSON.parse( charge.to_json )
         if payment.save
