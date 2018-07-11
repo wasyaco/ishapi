@@ -24,6 +24,23 @@ json.cache! key do
 
     json.subhead     @report.subhead
     json.description @report.descr
-
+  
+    if @report.photo
+      json.photo do
+        json.thumb_url @report.photo.photo.url :thumb
+        json.small_url @report.photo.photo.url :small
+        json.large_url @report.photo.photo.url :large
+      end
+    end
   end
+
+  # @deprecated, but specs use this _vp_ 20180423
+  if @report.photo
+    json.photo do
+      json.thumb_url @report.photo.photo.url :thumb
+      json.small_url @report.photo.photo.url :small
+      json.large_url @report.photo.photo.url :large
+    end
+  end
+  
 end

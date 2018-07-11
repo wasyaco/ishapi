@@ -19,8 +19,8 @@ if @current_profile.addresses[0]
   json.partial! 'ishapi/addresses/show', :address => @current_profile.addresses[0]
 end
 
-if @current_profile.measurements[0]
-  json.partial! 'ishapi/measurements/show', :measurement => @current_profile.measurements[0]
+if @current_profile.measurement
+  json.partial! 'ishapi/measurements/show', :measurement => @current_profile.measurement
 end
 
 json.partial! 'ishapi/orders/show', :order => @current_order
