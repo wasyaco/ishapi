@@ -5,9 +5,8 @@ module Ishapi
     def search
       authorize! :open_permission, ::Ishapi
       begin
-        p = IshModels::UserProfile.find_by( :email => params[:email] )
         i = Ish::Invoice.find_by( :number => params[:number] )
-        if i.profile == p && i.amount == params[:amount].to_f && i.payments.count == 0
+        if i.email == params[:email] && i.amount == params[:amount].to_f && i.payments.count == 0
           render :json => { :status => :ok }
         else
           render :status => 404, :json => {} # :json => { :status => 404, :code => 404, :message => 'Not Found1' }
