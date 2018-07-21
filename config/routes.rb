@@ -39,6 +39,7 @@ Ishapi::Engine.routes.draw do
   get 'reports/view/:name_seo', :to => 'reports#show'
 
   get 'sites/view/:domain',                            :to => 'sites#show',      :constraints => { :domain => /[^\/]+/ }
+  post 'sites/view/:domain',                           :to => 'sites#show',      :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/newsitems/:newsitems_page',  :to => 'newsitems#index', :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/reports',                    :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/reports/page/:reports_page', :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
