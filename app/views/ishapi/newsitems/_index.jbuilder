@@ -9,9 +9,10 @@ json.newsitems do
     json.descr       item.descr
     json.description item.descr
     json.name        item.name
+    json.id          item.id.to_s
     
     if item.gallery
-      json.item_type  'gallery' #@TODO: should be a constant
+      json.item_type  'gallery'
       json.name        item.gallery.name
       json.galleryname item.gallery.galleryname
      
