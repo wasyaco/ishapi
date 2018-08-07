@@ -19,11 +19,11 @@ module Ishapi
 
 
       if @site.is_private
-        if !params[:access_token]
+        if !params[:accessToken]
           render :json => { :status => :unauthorized}, :status => :unauthorized
           return
         end
-        access_token = params[:access_token]
+        access_token = params[:accessToken]
         @graph = Koala::Facebook::API.new( access_token, ::FB[@site.domain][:secret] )
         @profile = @graph.get_object "me", :fields => 'email'
         if @site.private_user_emails.include?( @profile['email'] )

@@ -2,7 +2,10 @@ module Ishapi
   class ApplicationController < ActionController::Base
     protect_from_forgery :prepend => true, :with => :exception
     layout :false
+
+    before_action :check_profile
     before_action :set_current_ability
+    
     check_authorization
     skip_before_action :verify_authenticity_token
 
@@ -13,6 +16,10 @@ module Ishapi
 
     # this doesn't generate long-lived token, doesn't update user_profile
     def check_profile
+      # puts! params, 'params'
+      # puts! current_user, 'current_user'
+      # puts! @current_user, '@current_user'
+      
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
       accessToken ||= params[:accessToken]
@@ -26,6 +33,10 @@ module Ishapi
       @current_profile  = @current_user.profile
       @current_order    = @current_profile.current_order
       # orders.where( :submitted_at => nil ).first || ::CoTailors::Order.create( :profile_id => @current_profile.id )
+
+      ## for sedux
+      sign_in( @current_user )
+      puts! @current_user, '@current_user 222'
     end
 
     def set_profile
@@ -81,7 +92,8 @@ module Ishapi
     end
 
     def set_current_ability
-      @current_ability ||= ::Ishapi::Ability.new( current_user )
+      puts! @current_user, '@current_user 111'
+      @current_ability ||= ::Ishapi::Ability.new( @current_user )
     end
 
     def puts! a, b=''

@@ -17,8 +17,10 @@ Ishapi::Engine.routes.draw do
 
   get 'events/view/:eventname',      :to => 'events#show'
 
-  get 'galleries',                   :to => 'galleries#index'
-  get 'galleries/view/:galleryname', :to => 'galleries#show'
+  get  'galleries',                   :to => 'galleries#index'
+  post 'galleries',                   :to => 'galleries#index'
+  get  'galleries/view/:galleryname', :to => 'galleries#show'
+  post 'galleries/view/:galleryname', :to => 'galleries#show'
 
   post 'invoices/search', :to => 'invoices#search'
 

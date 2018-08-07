@@ -14,7 +14,7 @@ class Ishapi::Ability
       end
 
       can [ :show ], Gallery do |gallery|
-        gallery.user == user
+        gallery.user_profile == user.profile
       end
 
       can [ :update ], ::CoTailors::Address do |address|
