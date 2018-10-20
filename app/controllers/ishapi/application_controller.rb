@@ -36,7 +36,7 @@ module Ishapi
 
       ## for sedux
       sign_in( @current_user )
-      puts! @current_user, '@current_user 222'
+      # puts! @current_user, '@current_user 222'
     end
 
     def set_profile
