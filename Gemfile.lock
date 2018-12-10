@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.83)
+    ishapi (0.1.8.84)
       cancancan (~> 2.0)
       fb_graph
       jbuilder (~> 2.7)
