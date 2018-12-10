@@ -1,7 +1,7 @@
 require_dependency "ishapi/application_controller"
 
 module Ishapi
-  class ApiController < ApplicationController
+  class ApiController < UnrestrictedController
 
     def home
       authorize! :welcome_home, Ishapi
