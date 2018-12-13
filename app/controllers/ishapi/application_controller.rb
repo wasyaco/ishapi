@@ -92,7 +92,6 @@ module Ishapi
     end
 
     def set_current_ability
-      puts! @current_user, '@current_user 111'
       @current_ability ||= ::Ishapi::Ability.new( @current_user )
     end
 

@@ -1,6 +1,6 @@
 require_dependency "ishapi/application_controller"
 module Ishapi
-  class ProductsController < ApplicationController
+  class ProductsController < UnrestrictedController
 
     def show
       @product = ::CoTailors::Product.where( :kind => params[:kind] ).first
