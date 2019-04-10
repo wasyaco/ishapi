@@ -22,11 +22,15 @@ class Ishapi::Ability
         true
       end
 
+
+
     end
     #
     # anonymous user
     #
     user ||= User.new
+
+    can [ :show ], IshModels::UserProfile
 
     can [ :index, :show ], City
 

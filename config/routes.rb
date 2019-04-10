@@ -27,6 +27,7 @@ Ishapi::Engine.routes.draw do
   namespace :my do
     post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
+    get 'newsitems', to: 'newsitems#index'
 
     # resources :reports
     # resources :galleries
@@ -48,7 +49,8 @@ Ishapi::Engine.routes.draw do
   get 'sites/view/:domain/tags',                       :to => 'tags#index',      :constraints => { :domain => /[^\/]+/ }
 
   get 'tags/view/:tagname', :to => 'tags#show'
-
+  get 'test', to: 'application#test'
+  
   namespace :tgm do
   end
 

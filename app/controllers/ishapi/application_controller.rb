@@ -3,19 +3,43 @@ module Ishapi
     protect_from_forgery :prepend => true, :with => :exception
     layout :false
 
-    before_action :check_profile
-    before_action :set_current_ability
+    before_action :check_profile, except: [ :test ]
+    # before_action :set_current_ability
     
     check_authorization
     skip_before_action :verify_authenticity_token
+
+    def test
+    end
 
     #
     # private
     #
     private
 
+    def check_multiprofile provider = 'google'
+      if provider == 'google'
+        # client_secrets = ::Google::APIClient::ClientSecrets.load
+        # accessToken = params[:accessToken]
+        # authorization = ::Google::Auth.get_application_default
+        # result = authorization.apply({ accessToken: params[:accessToken] })
+        # puts! result, 'googleauth result'
+
+        decoded_token = JWT.decode params[:idToken], nil, false
+        
+        @current_user = User.find_by email: decoded_token[0]['email']
+        # puts! @current_user.email, 'multiprofile'
+        
+        sign_in @current_user, scope: :user
+        set_current_ability
+      end
+    end
+
     # this doesn't generate long-lived token, doesn't update user_profile
+    # this is only for facebook?
     def check_profile
+      return check_multiprofile 'google'
+
       # puts! params, 'params'
       # puts! current_user, 'current_user'
       # puts! @current_user, '@current_user'
@@ -92,7 +116,7 @@ module Ishapi
     end
 
     def set_current_ability
-      puts! @current_user, '@current_user 111'
+      puts! current_user.email, '#set_current_ability() :: @current_user'
       @current_ability ||= ::Ishapi::Ability.new( @current_user )
     end
 

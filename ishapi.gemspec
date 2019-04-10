@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari-mongoid", "~> 1.0"
   s.add_dependency "kaminari-actionview", "~> 1.0"
   s.add_dependency "koala", "~> 3.0"
+  s.add_dependency "googleauth", "~> 0.8.0"
   s.add_dependency "fb_graph"
   s.add_dependency "mongoid-autoinc", "~> 6.0"
   s.add_dependency "rack-throttle", "~> 0.5"
