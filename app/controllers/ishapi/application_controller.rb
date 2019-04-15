@@ -3,7 +3,7 @@ module Ishapi
     protect_from_forgery :prepend => true, :with => :exception
     layout :false
 
-    before_action :check_profile, except: [ :test ]
+    # before_action :check_profile, except: [ :test ]
     # before_action :set_current_ability
     
     check_authorization
@@ -18,7 +18,7 @@ module Ishapi
     private
 
     def check_multiprofile provider = 'google'
-      if provider == 'google'
+      if 'google' == provider
         # client_secrets = ::Google::APIClient::ClientSecrets.load
         # accessToken = params[:accessToken]
         # authorization = ::Google::Auth.get_application_default
@@ -28,17 +28,29 @@ module Ishapi
         decoded_token = JWT.decode params[:idToken], nil, false
         
         @current_user = User.find_by email: decoded_token[0]['email']
-        # puts! @current_user.email, 'multiprofile'
         
-        sign_in @current_user, scope: :user
-        set_current_ability
+      elsif 'facebook' == provider
+        accessToken   = request.headers[:accessToken]
+        accessToken ||= params[:fb_long_access_token]
+        accessToken ||= params[:accessToken]
+        if accessToken
+          @graph            = Koala::Facebook::API.new( accessToken )
+          @me               = @graph.get_object( 'me', :fields => 'email' )
+          @current_user     = User.find_by :email => @me['email']
+        else
+          @current_user     = current_user  if Rails.env.test?
+        end
       end
+
+      sign_in @current_user, scope: :user
+      set_current_ability
     end
 
     # this doesn't generate long-lived token, doesn't update user_profile
     # this is only for facebook?
     def check_profile
-      return check_multiprofile 'google'
+      # return check_multiprofile 'google'
+      return check_multiprofile 'facebook'
 
       # puts! params, 'params'
       # puts! current_user, 'current_user'
