@@ -24,16 +24,16 @@ Ishapi::Engine.routes.draw do
 
   post 'invoices/search', :to => 'invoices#search'
 
+  get 'my/newsitems', to: 'newsitems#index'
   namespace :my do
     post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
-    get 'newsitems', to: 'newsitems#index'
 
     # resources :reports
     # resources :galleries
     # resources :videos
   end
-
+  
   post 'payments', :to => 'payments#create'
 
   get 'profiles/view/:username', :to => 'user_profiles#show'
