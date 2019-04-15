@@ -10,8 +10,14 @@ fi
 
 bundle
 
+version=`cat VERSION`
+echo $version
+
+cat ishapi.gemspec-template | \
+  sed -e "s/\$version/$version/g" > ishapi.gemspec
+
 gem build ishapi.gemspec
-gem push ishapi-`cat VERSION`.gem
+gem push ishapi-$version.gem
 
 git add .
 git commit -m 'autobuild `date "+%Y%m%d"`'
