@@ -32,15 +32,16 @@ json.newsitems do
       end
     end
     
-    if item.video
-      json.partial! 'ishapi/videos/show', :video => item.video
+    if item.video_id
+      json.partial! 'ishapi/videos/show', :video => Video.unscoped.find( item.video_id )
       
-      json.item_type  'video'
-      json.name       item.video.name
-      json.descr      item.video.descr
-      json.x          item.video.x
-      json.y          item.video.y
-      json.youtube_id item.video.youtube_id
+      # json.item_type  'video'
+      # json.name       item.video.name
+      # json.descr      item.video.descr
+      # json.x          item.video.x
+      # json.y          item.video.y
+      # json.youtube_id item.video.youtube_id
+      # json.url        item.video.video.url
     end
     if item.photo
       json.item_type 'photo'

@@ -5,6 +5,8 @@ json.name        video.name
 json.description video.descr
 json.x           video.x
 json.y           video.y
+json.url         video.video.url 
+json.item_type   'video'
 
 if video.city
   json.city_name video.city.name
