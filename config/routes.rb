@@ -25,6 +25,7 @@ Ishapi::Engine.routes.draw do
   post 'invoices/search', :to => 'invoices#search'
 
   get 'my/newsitems', to: 'newsitems#index'
+  get 'my/account',   to: 'user_profiles#my'
   namespace :my do
     post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
