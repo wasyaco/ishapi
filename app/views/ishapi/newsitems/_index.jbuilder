@@ -17,7 +17,7 @@ json.newsitems do
       json.galleryname item.gallery.galleryname
      
       json.partial!    'ishapi/application/meta', :item => item.gallery
-      json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos.limit( 6 )
+      json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos
     end
     if item.report
       json.item_type  'report'
