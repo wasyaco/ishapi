@@ -42,6 +42,9 @@ module Ishapi
           @current_profile = @current_user.profile          
           if !@current_profile
             @current_profile = IshModels::UserProfile.create user: @current_user, name: @me['email'], email: @me['email']
+            test_newsitem = Newsitem.new gallery_id: '5e1495e2d697f768ad0779eb'
+            @current_profile.newsitems << test_newsitem
+            @current_profile.save
           end
         else
           @current_user     = current_user  if Rails.env.test?
