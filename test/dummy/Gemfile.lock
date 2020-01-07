@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: 95e8a7d45a4e4b266573f4ecf9a854b139bdb9a4
+  revision: c3005fc002911d8d4e55afe2fd4248fa028ae324
   branch: master
   specs:
-    ish_models (0.0.33.78)
+    ish_models (0.0.33.94)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -246,4 +246,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.16.2
+   1.17.3

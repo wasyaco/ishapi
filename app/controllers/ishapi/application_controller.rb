@@ -36,7 +36,8 @@ module Ishapi
         if accessToken
           @graph            = Koala::Facebook::API.new( accessToken )
           @me               = @graph.get_object( 'me', :fields => 'email' )
-          @current_user     = User.find_by :email => @me['email']
+          @current_user     = User.where( :email => @me['email'] ).first
+          @current_user   ||= User.create! email: @me['email'], password: SecureRandom.urlsafe_base64
         else
           @current_user     = current_user  if Rails.env.test?
         end
