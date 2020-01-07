@@ -38,6 +38,14 @@ module Ishapi
           @me               = @graph.get_object( 'me', :fields => 'email' )
           @current_user     = User.where( :email => @me['email'] ).first
           @current_user   ||= User.create! email: @me['email'], password: SecureRandom.urlsafe_base64
+          
+          @current_profile = @current_user.profile
+          if !@current_profile
+            p = IshModels::UserProfile.new
+            p.user = @current_user
+            p.save
+            @current_profile = p
+          end
         else
           @current_user     = current_user  if Rails.env.test?
         end
