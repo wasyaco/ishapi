@@ -4,7 +4,7 @@ module Ishapi
     layout :false
 
     # before_action :check_profile, except: [ :test ]
-    # before_action :set_current_ability
+    before_action :set_current_ability
     
     check_authorization
     skip_before_action :verify_authenticity_token
@@ -137,7 +137,8 @@ module Ishapi
     end
 
     def set_current_ability
-      puts! current_user.email, '#set_current_ability() :: @current_user'
+      # puts! current_user.email, '#set_current_ability() :: @current_user'
+      @current_user ||= User.new
       @current_ability ||= ::Ishapi::Ability.new( @current_user )
     end
 
