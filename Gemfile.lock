@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.105)
+    ishapi (0.1.8.106)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
@@ -880,7 +880,7 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     public_suffix (4.0.3)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-oauth2 (1.10.1)
       activesupport
       attr_required
