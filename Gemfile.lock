@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: c3005fc002911d8d4e55afe2fd4248fa028ae324
+  revision: 5a097d3ccad3a1b9cf308a08549c4e0105bd9bd5
   branch: master
   specs:
-    ish_models (0.0.33.94)
+    ish_models (0.0.33.96)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.105)
+    ishapi (0.1.8.106)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
@@ -785,13 +785,13 @@ GEM
       aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.13)
     bindata (2.4.4)
-    bson (4.6.0)
-    builder (3.2.3)
+    bson (4.7.0)
+    builder (3.2.4)
     cancancan (2.3.0)
     climate_control (0.2.0)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
-    crass (1.0.5)
+    crass (1.0.6)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -816,7 +816,7 @@ GEM
       os (>= 0.9, < 2.0)
       signet (~> 0.7)
     httpclient (2.8.3)
-    i18n (1.7.0)
+    i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -847,14 +847,14 @@ GEM
       mimemagic (~> 0.3.2)
     memoist (0.16.2)
     method_source (0.9.2)
-    mime-types (3.3)
+    mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.13.0)
-    mongo (2.11.1)
+    minitest (5.14.0)
+    mongo (2.11.2)
       bson (>= 4.6.0, < 5.0.0)
     mongoid (6.1.1)
       activemodel (~> 5.0)
@@ -869,7 +869,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.0.1)
@@ -937,9 +937,9 @@ GEM
       net-http-persistent (~> 3.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    thor (0.20.3)
+    thor (1.0.1)
     thread_safe (0.3.6)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     warden (1.2.8)
       rack (>= 2.0.6)

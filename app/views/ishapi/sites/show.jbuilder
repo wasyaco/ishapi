@@ -3,7 +3,7 @@
 # ishapi / sites / show
 #
 
-key = [ @site, params.permit! ]
+key = [ @site.id, @site.updated_at, params.permit! ]
 json.cache! key do
   json.id          @site.id.to_s
   json.domain      @site.domain
