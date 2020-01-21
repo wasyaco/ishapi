@@ -9,7 +9,6 @@ json.newsitems do
     json.id          item.id.to_s
     json.name        item.name
     json.created_at  item.created_at
-    json.description item.description if item.description
     
     if item.gallery
       json.item_type  'gallery'
