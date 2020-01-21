@@ -8,7 +8,6 @@ json.newsitems do
 
     json.id          item.id.to_s
     json.name        item.name
-    json.slug        item.slug        if item.slug
     json.created_at  item.created_at
     json.description item.description if item.description
     
