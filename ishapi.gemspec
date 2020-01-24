@@ -6,7 +6,7 @@ require "ishapi/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "ishapi"
-  s.version     = "0.1.8.109"
+  s.version     = "0.1.8.112"
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
   s.homepage    = "http://wasya.co"
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.1"
-  s.add_dependency 'mongoid', "~> 6.1"
+  s.add_dependency 'mongoid', "~> 7.0.5"
   s.add_dependency 'cancancan', "~> 2.0"
   s.add_dependency "kaminari-mongoid", "~> 1.0"
   s.add_dependency "kaminari-actionview", "~> 1.0"
