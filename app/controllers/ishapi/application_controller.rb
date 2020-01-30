@@ -1,5 +1,7 @@
 module Ishapi
   class ApplicationController < ActionController::Base
+    after_action :append_long_term_token, except: [ :long_term_token, :test ]
+
     protect_from_forgery :prepend => true, :with => :exception
     layout :false
 
@@ -12,10 +14,35 @@ module Ishapi
     def test
     end
 
+    def long_term_token
+      authorize! :long_term_token, ::Ishapi
+
+      accessToken   = request.headers[:accessToken]
+      accessToken ||= params[:accessToken]
+
+      params['domain'] = 'tgm.piousbox.com'
+
+      response = HTTParty.get "https://graph.facebook.com/v5.0/oauth/access_token?grant_type=fb_exchange_token&" +
+        "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&" +
+        "fb_exchange_token=#{accessToken}"
+      j = JSON.parse response.body
+      @long_term_token = j['access_token']
+
+      render json: { long_term_token: @long_term_token }
+    end
+
     #
     # private
     #
     private
+
+    def append_long_term_token
+      puts! 'after action!', @long_term_token
+
+      if @long_term_token
+        response.body = JSON.parse(response.body).merge({ long_term_token: @long_term_token }).to_json
+      end
+    end
 
     def check_multiprofile provider = 'google'
       if 'google' == provider
@@ -30,25 +57,50 @@ module Ishapi
         @current_user = User.find_by email: decoded_token[0]['email']
         
       elsif 'facebook' == provider
+        # accessToken ||= params[:fb_long_access_token]
+
         accessToken   = request.headers[:accessToken]
-        accessToken ||= params[:fb_long_access_token]
         accessToken ||= params[:accessToken]
         if accessToken
+
+          #
+          # long-term token
+          #
+          params['domain'] = 'tgm.piousbox.com'
+          puts! accessToken, 'accessToken'
+          response = HTTParty.get "https://graph.facebook.com/v5.0/oauth/access_token?grant_type=fb_exchange_token&" +
+            "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&" +
+            "fb_exchange_token=#{accessToken}"
+          j = JSON.parse response.body
+          @long_term_token = j['access_token']
+
+
           @graph            = Koala::Facebook::API.new( accessToken )
           @me               = @graph.get_object( 'me', :fields => 'email' )
           @current_user     = User.where( :email => @me['email'] ).first
           @current_user   ||= User.create! email: @me['email'], password: SecureRandom.urlsafe_base64
-          
+
           @current_profile = @current_user.profile          
           if !@current_profile
+            begin
+              g = Gallery.find '5e1495e2d697f768ad0779eb'
+            rescue Mongoid::Errors::DocumentNotFound => e
+              g = Gallery.create id: '5e1495e2d697f768ad0779eb'
+            end
             @current_profile = IshModels::UserProfile.create user: @current_user, name: @me['email'], email: @me['email']
             test_newsitem = Newsitem.new gallery_id: '5e1495e2d697f768ad0779eb'
             @current_profile.newsitems << test_newsitem
             @current_profile.save
           end
+          @current_profile.update fb_long_access_token: @long_term_token
         else
           @current_user     = current_user  if Rails.env.test?
         end
+
+        puts! @current_user, 'current_user'
+        puts! @current_profile, 'current_profile'
+        # byebug
+
       end
 
       sign_in @current_user, scope: :user

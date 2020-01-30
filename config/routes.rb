@@ -55,10 +55,11 @@ Ishapi::Engine.routes.draw do
   namespace :tgm do
   end
 
-  post 'users/fb_sign_in',     :to => 'users#fb_sign_in'
-  post 'users/profile',        :to => 'users#show'
-  post 'users/profile/update', :to => 'users#update'
-  get  'users/profile',        :to => 'users#show' # @TODO: only for testing! accessToken must be hidden
+  post  'users/fb_sign_in',     :to => 'users#fb_sign_in'
+  post  'users/profile',        :to => 'users#show'
+  post  'users/profile/update', :to => 'users#update'
+  get   'users/profile',        :to => 'users#show' # @TODO: only for testing! accessToken must be hidden
+  match 'users/long_term_token', to: 'application#long_term_token', via: [ :get, :post ]
 
   get 'venues', :to => 'venues#index'
   get 'venues/view/:venuename', :to => 'venues#show'

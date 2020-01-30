@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 43790f0b882296b6bd3a73fcc949283934556987
+  revision: b44efafe3ce61ff1f31325bfb284fe138bd7e3f4
   branch: master
   specs:
-    ish_models (0.0.33.99)
+    ish_models (0.0.33.100)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.109)
+    ishapi (0.1.8.112)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
@@ -850,7 +850,7 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
-    mimemagic (0.3.3)
+    mimemagic (0.3.4)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
@@ -958,4 +958,4 @@ DEPENDENCIES
   stripe
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

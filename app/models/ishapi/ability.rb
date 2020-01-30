@@ -51,7 +51,7 @@ class Ishapi::Ability
       report.is_public
     end
     
-    can [ :welcome_home, :fb_sign_in, :open_permission ], Ishapi
+    can [ :fb_sign_in, :long_term_token, :open_permission, :welcome_home ], Ishapi
 
     can [ :index, :show ], Site
 
