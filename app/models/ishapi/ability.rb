@@ -22,7 +22,7 @@ class Ishapi::Ability
         true
       end
 
-
+      can [ :buy_stars ], ::IshModels::UserProfile
 
     end
     #

@@ -44,6 +44,20 @@ module Ishapi
       end
     end
 
+    def check_long_term_token
+      accessToken   = request.headers[:accessToken]
+      accessToken ||= params[:accessToken]
+      if accessToken
+        @graph            = Koala::Facebook::API.new( accessToken )
+        @me               = @graph.get_object( 'me', :fields => 'email' )
+        @current_user     = User.where( :email => @me['email'] ).first
+        @profile = @current_user.profile
+        raise 'no profile 98&' unless @profile
+      else
+        raise 'no access token'
+      end
+    end
+
     def check_multiprofile provider = 'google'
       if 'google' == provider
         # client_secrets = ::Google::APIClient::ClientSecrets.load
@@ -67,7 +81,6 @@ module Ishapi
           # long-term token
           #
           params['domain'] = 'tgm.piousbox.com'
-          puts! accessToken, 'accessToken'
           response = HTTParty.get "https://graph.facebook.com/v5.0/oauth/access_token?grant_type=fb_exchange_token&" +
             "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&" +
             "fb_exchange_token=#{accessToken}"
@@ -100,7 +113,8 @@ module Ishapi
         puts! @current_user, 'current_user'
         puts! @current_profile, 'current_profile'
         # byebug
-
+      else
+        puts! 'check_multiprofile(): no access token'
       end
 
       sign_in @current_user, scope: :user
@@ -108,7 +122,7 @@ module Ishapi
     end
 
     # this doesn't generate long-lived token, doesn't update user_profile
-    # this is only for facebook?
+    # this is only for facebook now
     def check_profile
       # return check_multiprofile 'google'
       return check_multiprofile 'facebook'

@@ -49,6 +49,8 @@ Ishapi::Engine.routes.draw do
   get 'sites/view/:domain/reports/page/:reports_page', :to => 'reports#index',   :constraints => { :domain => /[^\/]+/ }
   get 'sites/view/:domain/tags',                       :to => 'tags#index',      :constraints => { :domain => /[^\/]+/ }
 
+  post 'stars/buy', to: 'gameui#buy_stars'
+
   get 'tags/view/:tagname', :to => 'tags#show'
   get 'test', to: 'application#test'
   

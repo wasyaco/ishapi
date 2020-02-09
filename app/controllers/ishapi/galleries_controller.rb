@@ -15,7 +15,6 @@ module Ishapi
         @galleries = @galleries.where( :site => @site )
       end
       @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
-      byebug
     end
 
     def show
