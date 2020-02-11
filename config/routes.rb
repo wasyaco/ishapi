@@ -24,15 +24,14 @@ Ishapi::Engine.routes.draw do
 
   post 'invoices/search', :to => 'invoices#search'
 
+  get 'maps', to: 'maps#index'
+  get 'maps/view/:slug', to: 'maps#show'
+
   get 'my/newsitems', to: 'newsitems#index'
   get 'my/account',   to: 'user_profiles#my'
   namespace :my do
     post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
-
-    # resources :reports
-    # resources :galleries
-    # resources :videos
   end
   
   post 'payments', :to => 'payments#create'
@@ -53,9 +52,6 @@ Ishapi::Engine.routes.draw do
 
   get 'tags/view/:tagname', :to => 'tags#show'
   get 'test', to: 'application#test'
-  
-  namespace :tgm do
-  end
 
   post  'users/fb_sign_in',     :to => 'users#fb_sign_in'
   post  'users/profile',        :to => 'users#show'

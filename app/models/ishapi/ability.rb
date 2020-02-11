@@ -41,10 +41,14 @@ class Ishapi::Ability
 
     can [ :index, :show ], Event
 
+    #
+    # G
+    #
     can [ :index ], Gallery
     can [ :show ], Gallery do |gallery|
       gallery.is_public
     end
+    can [ :index, :show ], ::Gameui::Map
 
     can [ :index ], Report
     can [ :my_index, :show ], Report do |report|
