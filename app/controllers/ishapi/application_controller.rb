@@ -37,25 +37,33 @@ module Ishapi
     private
 
     def append_long_term_token
-      puts! 'after action!', @long_term_token
-
       if @long_term_token
         response.body = JSON.parse(response.body).merge({ long_term_token: @long_term_token }).to_json
       end
     end
 
-    def check_long_term_token
+    ## Hard check by default; craps out if accessToken is missing
+    def check_long_term_token soft=false
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:accessToken]
       if accessToken
         @graph            = Koala::Facebook::API.new( accessToken )
         @me               = @graph.get_object( 'me', :fields => 'email' )
         @current_user     = User.where( :email => @me['email'] ).first
-        @profile = @current_user.profile
-        raise 'no profile 98&' unless @profile
+        @profile          = @current_user.profile
+        raise '98& - no profile' unless @profile
       else
-        raise 'no access token'
+        if soft
+          return
+        else
+          raise 'no access token'
+        end
       end
+    end
+    ## Does not crap out if accessToken is missing
+    def soft_check_long_term_token
+      check_long_term_token soft=true
+      # puts! @profile, 'soft_check_long_term_token() profile'
     end
 
     def check_multiprofile provider = 'google'
@@ -204,7 +212,7 @@ module Ishapi
 
     def set_current_ability
       # puts! current_user.email, '#set_current_ability() :: @current_user'
-      @current_user ||= User.new
+      @current_user ||= User.new({ profile: ::IshModels::UserProfile.new })
       @current_ability ||= ::Ishapi::Ability.new( @current_user )
     end
 

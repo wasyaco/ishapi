@@ -46,7 +46,7 @@ class Ishapi::Ability
     #
     can [ :index ], Gallery
     can [ :show ], Gallery do |gallery|
-      gallery.is_public
+      gallery.is_public && !gallery.is_trash
     end
     can [ :index, :show ], ::Gameui::Map
     can [ :show ], ::Gameui::Marker

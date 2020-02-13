@@ -18,7 +18,11 @@ json.newsitems do
       json.premium_tier item.gallery.premium_tier
      
       json.partial!    'ishapi/application/meta', :item => item.gallery
-      json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos
+      if item.gallery.is_premium
+        json.partial!    'ishapi/photos/index',     :photos => [ item.gallery.photos[0] ]
+      else
+        json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos
+      end
     end
 
     if item.report

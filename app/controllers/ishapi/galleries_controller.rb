@@ -3,6 +3,8 @@ require_dependency "ishapi/application_controller"
 module Ishapi
   class GalleriesController < ApplicationController
 
+    before_action :soft_check_long_term_token, only: [ :show ]
+
     def index
       @galleries = Gallery.all
       authorize! :index, Gallery
@@ -20,6 +22,15 @@ module Ishapi
     def show
       @gallery = ::Gallery.unscoped.find_by :galleryname => params[:galleryname]
       authorize! :show, @gallery
+      if @gallery.premium?
+        if current_user.profile.has_premium_purchase( @gallery )
+          render 'show_premium_unlocked'
+        else
+          render 'show_premium_locked'
+        end
+      else
+        render 'show'
+      end
     end
 
   end
