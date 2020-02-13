@@ -26,11 +26,12 @@ Ishapi::Engine.routes.draw do
 
   get 'maps', to: 'maps#index'
   get 'maps/view/:slug', to: 'maps#show'
+  get 'markers/view/:slug', to: 'maps#show_marker'
 
   get 'my/newsitems', to: 'newsitems#index'
   get 'my/account',   to: 'user_profiles#my'
   namespace :my do
-    post 'reports', :to => 'reports#index'
+    # post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
   end
   

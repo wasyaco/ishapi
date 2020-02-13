@@ -11,10 +11,11 @@ json.newsitems do
     json.created_at  item.created_at
     
     if item.gallery
-      json.item_type  'gallery'
-      json.name        item.gallery.name
-      json.galleryname item.gallery.galleryname
-      json.username    item.username
+      json.item_type    'gallery'
+      json.name         item.gallery.name
+      json.galleryname  item.gallery.galleryname
+      json.username     item.username
+      json.premium_tier item.gallery.premium_tier
      
       json.partial!    'ishapi/application/meta', :item => item.gallery
       json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos

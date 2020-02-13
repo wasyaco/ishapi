@@ -49,6 +49,7 @@ class Ishapi::Ability
       gallery.is_public
     end
     can [ :index, :show ], ::Gameui::Map
+    can [ :show ], ::Gameui::Marker
 
     can [ :index ], Report
     can [ :my_index, :show ], Report do |report|
