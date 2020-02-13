@@ -16,6 +16,7 @@ class Ishapi::Ability
       can [ :show ], Gallery do |gallery|
         gallery.user_profile == user.profile
       end
+      can [ :do_purchase ], ::Gameui
 
       can [ :update ], ::CoTailors::Address do |address|
         puts [ user.inspect, address.inspect ], '+++ user in cancancan'

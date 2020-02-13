@@ -5,9 +5,13 @@
 this_key = [ @gallery, params.permit! ]
 json.cache! this_key do
   json.gallery do
-    json.message "Thanks for purchasing!"
+    json.message      "Thanks for purchasing!"
+    json.premium_tier @gallery.premium_tier
+    json.is_premium   @gallery.is_premium
+    json.is_purchased true
+
     json.partial! 'ishapi/galleries/show', gallery: @gallery   
-    json.partial! 'ishapi/photos/index', :photos => [ @gallery.photos[0] ]
+    json.partial! 'ishapi/photos/index', :photos => @gallery.photos
   end
 end
 

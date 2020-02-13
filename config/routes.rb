@@ -15,6 +15,8 @@ Ishapi::Engine.routes.draw do
   namespace :co_tailors do
   end
 
+  post 'do_purchase', to: 'gameui#do_purchase'
+  
   get 'events/view/:eventname',      :to => 'events#show'
 
   get  'galleries',                   :to => 'galleries#index'

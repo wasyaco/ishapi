@@ -42,5 +42,23 @@ module Ishapi
       render json: { status: 'ok', n_stars: @profile.n_stars }
     end
 
+    ## spend the star
+    def do_purchase
+      authorize! :do_purchase, ::Gameui
+      item = params[:className].constantize.find_by_slug( params[:slug] )
+      
+      raise 'no such item'     if !item
+      raise 'too little funds' if @profile.n_stars < item.premium_tier
+
+      ::IshModels::UserProfile.with_session do
+        @profile.update_attributes( n_stars: @profile.n_stars - item.premium_tier )
+        @purchase = ::Gameui::PremiumPurchase.create! user_profile: @profile, item: item
+      end
+
+      render json: @purchase
+    rescue ::Exception => e
+      render json: e
+    end
+
   end
 end

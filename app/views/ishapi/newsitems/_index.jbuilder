@@ -15,10 +15,13 @@ json.newsitems do
       json.name         item.gallery.name
       json.galleryname  item.gallery.galleryname
       json.username     item.username
-      json.premium_tier item.gallery.premium_tier
+      
      
       json.partial!    'ishapi/application/meta', :item => item.gallery
       if item.gallery.is_premium
+        json.premium_tier item.gallery.premium_tier
+        json.is_premium   item.gallery.premium_tier > 0
+        json.is_purchased current_user.profile.has_premium_purchase( item.gallery )
         json.partial!    'ishapi/photos/index',     :photos => [ item.gallery.photos[0] ]
       else
         json.partial!    'ishapi/photos/index',     :photos => item.gallery.photos

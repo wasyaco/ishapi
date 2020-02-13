@@ -2,6 +2,8 @@ require_dependency "ishapi/application_controller"
 module Ishapi
   class MapsController < ApplicationController
 
+    before_action :soft_check_long_term_token, only: [ :show ]
+    
     def index
       authorize! :index, ::Gameui::Map
       @maps = ::Gameui::Map.all

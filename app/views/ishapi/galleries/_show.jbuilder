@@ -4,6 +4,5 @@
 
 json.id           gallery.id.to_s
 json.name         gallery.name
-json.premium_tier gallery.premium_tier
 json.galleryname  gallery.galleryname
 json.description  gallery.description
