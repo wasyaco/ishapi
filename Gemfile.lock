@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: 73e87e73c715ff88668d731c06edb7c50cca7b1f
+  revision: 9711a24ae33b04c9420bcfbe69092c4531d92038
   branch: master
   specs:
-    ish_models (0.0.33.100)
+    ish_models (0.0.33.104)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.113)
+    ishapi (0.1.8.114)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
@@ -789,7 +789,7 @@ GEM
     builder (3.2.4)
     cancancan (2.3.0)
     climate_control (0.2.0)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     crass (1.0.6)
     devise (4.7.1)
@@ -818,8 +818,8 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.9.1)
-      activesupport (>= 4.2.0)
+    jbuilder (2.10.0)
+      activesupport (>= 5.0.0)
     jmespath (1.4.0)
     json (2.3.0)
     json-jwt (1.11.0)
@@ -869,7 +869,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.0.1)
