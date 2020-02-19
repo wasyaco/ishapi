@@ -27,8 +27,6 @@ module Ishapi
 
     private
 
-
-
     def set_current_ability
       @current_ability ||= ::Ishapi::Ability.new( User.new )
     end
