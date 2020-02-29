@@ -1,21 +1,40 @@
 
+#
+# ish_api / videos / _show
+#
+
 json.id          video.id.to_s
+json.slug        video.id.to_s
 json.youtube_id  video.youtube_id
 json.name        video.name
 json.description video.descr
+json.subhead     video.subhead
 json.x           video.x
 json.y           video.y
 json.url         video.video.url 
 json.item_type   'video'
 
 if video.city
-  json.city_name video.city.name
+  json.cityname video.city.cityname
+  json.city do
+    json.name video.city.name
+    json.slug video.city.cityname
+  end
 end
 
-if video.tag
-  json.tag video.tag.name
-end
+json.tags         [ { slug: 'adventure', name: 'Adventure' },
+                    { slug: 'bars-and-clubs', name: 'Bars & Clubs' },
+                    { slug: 'food', name: 'Food' },
+                    { slug: 'late-night', name: 'Late Night' } ]
 
 if video.user_profile
   json.username video.user_profile.name
+end
+
+if video.is_premium
+  json.premium_tier video.premium_tier
+  json.is_premium   video.premium_tier > 0
+  if current_user && current_user.profile
+    json.is_purchased current_user.profile.has_premium_purchase( item.video )
+  end
 end

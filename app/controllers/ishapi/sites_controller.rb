@@ -35,7 +35,7 @@ module Ishapi
       end
 
       @galleries    = @site.galleries.limit( 10 )
-      @newsitems    = @site.newsitems.limit(10)
+      @newsitems    = @site.newsitems.limit( @site.newsitems_per_page )
       @reports      = @site.reports.limit( 10 )
       @langs        = ::Site.where( :domain => domain ).map( &:lang )
       @feature_tags = @site.tags.where( :is_feature => true )
