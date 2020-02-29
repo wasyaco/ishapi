@@ -14,9 +14,15 @@ json.newsitems do
       json.item_type    'gallery'
       json.name         item.gallery.name
       json.galleryname  item.gallery.galleryname
-      json.username     item.username
-      
-     
+      json.username     item.username || item.gallery.username || 'piousbox'
+      json.n_photos     item.gallery.photos.length
+      json.slug         item.gallery.galleryname
+      json.subhead      item.gallery.subhead
+      json.tags         [ { slug: 'adventure', name: 'Adventure' },
+                          { slug: 'bars-and-clubs', name: 'Bars & Clubs' },
+                          { slug: 'food', name: 'Food' },
+                          { slug: 'late-night', name: 'Late Night' } ]
+
       json.partial!    'ishapi/application/meta', :item => item.gallery
       if item.gallery.is_premium
         json.premium_tier item.gallery.premium_tier
@@ -32,13 +38,20 @@ json.newsitems do
       json.item_type  'report'
       json.name       item.report.name
       json.reportname item.report.name_seo
-      json.subhead     item.report.subhead
+      json.subhead    item.report.subhead
       json.report_id  item.report_id.to_s
       json.username   item.report.user_profile.name if item.report.user_profile
+
       if item.report.photo
         json.photo_url item.report.photo.photo.url( :small ) 
         json.thumb_url item.report.photo.photo.url( :thumb )
       end
+
+      json.partial!    'ishapi/application/meta', :item => item.report
+      json.tags         [ { slug: 'adventure', name: 'Adventure' },
+                          { slug: 'bars-and-clubs', name: 'Bars & Clubs' },
+                          { slug: 'food', name: 'Food' },
+                          { slug: 'late-night', name: 'Late Night' } ]
     end
     
     if item.video_id
