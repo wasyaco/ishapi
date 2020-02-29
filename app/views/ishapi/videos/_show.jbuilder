@@ -35,6 +35,11 @@ if video.is_premium
   json.premium_tier video.premium_tier
   json.is_premium   video.premium_tier > 0
   if current_user && current_user.profile
-    json.is_purchased current_user.profile.has_premium_purchase( item.video )
+    json.is_purchased current_user.profile.has_premium_purchase( video )
   end
+end
+
+if video.thumb
+  json.photo_s169_url   video.thumb.url( :s169 ) 
+  json.photo_thumb2_url video.thumb.url( :thumb2 )
 end
