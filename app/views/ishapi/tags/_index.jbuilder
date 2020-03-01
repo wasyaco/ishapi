@@ -3,6 +3,7 @@
 # ishapi / tags / _index
 #
 
+json.n_tags tags.count
 json.tags do
   json.array! tags do |tag|
     json.id          tag.id.to_s
