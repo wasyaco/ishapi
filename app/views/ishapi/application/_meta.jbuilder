@@ -9,6 +9,9 @@ if item.city
   end
   json.cityname item.city.cityname
 end
-if item.tag
-  json.tag_name item.tag.name
+if defined?(item.tag) && !item.tag.blank?
+  json.partial! 'ishapi/tags/index', tags: [ item.tag ]
+end
+if defined?(item.tags) && !item.tags.blank?
+  json.partial! 'ishapi/tags/index', tags: item.tags
 end

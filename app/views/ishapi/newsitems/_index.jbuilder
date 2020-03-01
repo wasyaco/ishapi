@@ -48,11 +48,8 @@ json.newsitems do
         json.photo_thumb2_url item.report.photo.photo.url( :thumb2 )
       end
 
-      json.partial!    'ishapi/application/meta', :item => item.report
-      json.tags         [ { slug: 'adventure', name: 'Adventure' },
-                          { slug: 'bars-and-clubs', name: 'Bars & Clubs' },
-                          { slug: 'food', name: 'Food' },
-                          { slug: 'late-night', name: 'Late Night' } ]
+      json.partial! 'ishapi/application/meta', :item => item.report
+      json.partial! 'ishapi/tags/index', tags: item.report.tags
 
       if item.report.is_premium
         json.premium_tier item.report.premium_tier
