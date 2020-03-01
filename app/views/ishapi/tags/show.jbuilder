@@ -4,9 +4,8 @@
 # ishapi / tags / show
 #
 
-json.id      @tag.id.to_s
-json.name    @tag.name
-json.tagname @tag.tagname
+json.name @tag.name
+json.slug @tag.tagname
 
 json.partial! 'ishapi/newsitems/index', :newsitems => @tag.newsitems.page( params[:newsitems_page] ).per( params[:newsitems_per] || 25 )
 json.partial! 'ishapi/reports/index',   :reports   => @tag.reports.page( params[:reports_page]     ).per( params[:reports_per] || 25 )
