@@ -6,10 +6,10 @@
 json.n_reports reports.count
 json.reports do
   json.array! reports do |report|
-    json.id          report.id.to_s
+    # json.id          report.id.to_s
     json.created_at  report.created_at
     json.name        report.name
-    json.reportname  report.name_seo
+    json.slug        report.name_seo
     json.description report.descr
 
     if report.photo
@@ -19,6 +19,8 @@ json.reports do
         json.large_url report.photo.photo.url :large
       end
     end
+
+    json.partial! 'ishapi/tags/index', tags: report.tags unless report.tags.blank?
 
   end
 end

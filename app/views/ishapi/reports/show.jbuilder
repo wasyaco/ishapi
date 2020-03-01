@@ -31,7 +31,7 @@ json.cache! key do
       end
     end
 
-    json.partial! 'ishapi/tags/index',   :tags   => @report.tags.page( params[:tags_page] ).per( params[:tags_per] || 25 )
+    json.partial! 'ishapi/tags/index',   :tags   => @report.tags
   end
 
   # @deprecated, but specs use this _vp_ 20180423
