@@ -19,6 +19,11 @@ module Ishapi
         @reports = @reports.where( :site_id => site.id )
       end
 
+      if params[:tag]
+        tag = Tag.find_by(:name => params[:tag])
+        @reports = @reports.where(:tag_ids => tag)
+      end
+
       @reports = @reports.page( params[:reports_page] ).per( 10 )
     end
 

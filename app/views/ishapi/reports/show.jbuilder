@@ -20,8 +20,6 @@ json.cache! key do
     json.updated_at  @report.updated_at
     json.username    @report.user_profile.name if @report.user_profile
     json.cityname    @report.city.cityname if @report.city
-    json.tagname     @report.tag.name_seo  if @report.tag
-
     json.subhead     @report.subhead
     json.description @report.descr
   
@@ -32,6 +30,8 @@ json.cache! key do
         json.large_url @report.photo.photo.url :large
       end
     end
+
+    json.partial! 'ishapi/tags/index',   :tags   => @report.tags.page( params[:tags_page] ).per( params[:tags_per] || 25 )
   end
 
   # @deprecated, but specs use this _vp_ 20180423
