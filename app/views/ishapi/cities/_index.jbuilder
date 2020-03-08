@@ -10,6 +10,7 @@ json.array! @cities do |city|
   json.n_galleries city.galleries.length
   json.n_videos    city.videos.length
   if city.profile_photo
-    json.photo city.profile_photo.photo.url( :thumb2 )
+    json.photo     city.profile_photo.photo.url( :thumb2 )
+    json.thumb_img city.profile_photo.photo.url( :thumb2 )
   end
 end

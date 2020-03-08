@@ -9,10 +9,13 @@ json.cache! key do
     json.id          @city.id.to_s
     json.name        @city.name
     json.cityname    @city.cityname
+    json.slug        @city.cityname
     json.description @city.description
-    json.photo       @city.profile_photo.photo.url( :thumb ) if @city.profile_photo
     json.x           @city.x
     json.y           @city.y
+
+    json.thumb_img   @city.profile_photo.photo.url( :thumb2 ) if @city.profile_photo
+    json.hero_img    @city.profile_photo.photo.url( :large )  if @city.profile_photo
 
     json.partial! 'ishapi/events/index',    :events    => @city.events
     json.partial! 'ishapi/features/index',  :features  => @city.features, :resource => @city
