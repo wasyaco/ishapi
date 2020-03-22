@@ -19,11 +19,6 @@ json.newsitems do
       json.n_photos     item.gallery.photos.length
       json.slug         item.gallery.galleryname
       json.subhead      item.gallery.subhead
-      json.tags         [ { slug: 'adventure', name: 'Adventure' },
-                          { slug: 'bars-and-clubs', name: 'Bars & Clubs' },
-                          { slug: 'food', name: 'Food' },
-                          { slug: 'late-night', name: 'Late Night' } ]
-
       json.partial!    'ishapi/application/meta', :item => item.gallery
       if item.gallery.is_premium
         json.premium_tier item.gallery.premium_tier
@@ -49,7 +44,6 @@ json.newsitems do
       end
 
       json.partial! 'ishapi/application/meta', :item => item.report
-      json.partial! 'ishapi/tags/index', tags: item.report.tags
 
       if item.report.is_premium
         json.premium_tier item.report.premium_tier
