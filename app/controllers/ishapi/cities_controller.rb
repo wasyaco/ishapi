@@ -20,7 +20,7 @@ module Ishapi
     end
 
     def show
-      @city = City.find_by :name => params[:cityname]
+      @city = City.find_by :cityname => params[:cityname]
       authorize! :show, @city
     end
 
