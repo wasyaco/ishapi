@@ -1,9 +1,11 @@
 #
 # ishapi / galleries / _show
 #
+json.id           gallery.id.to_s
 json.item_type    'gallery'
 json.name         gallery.name
 json.galleryname  gallery.galleryname
+json.description  gallery.description
 json.username     gallery.username || 'piousbox'
 json.n_photos     gallery.photos.length
 json.slug         gallery.galleryname
