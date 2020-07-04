@@ -14,12 +14,11 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.130)
+    ishapi (0.1.8.131)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
       jbuilder (~> 2.7)
-      jwt (~> 2.2.1)
       kaminari-actionview (~> 1.0)
       kaminari-mongoid (~> 1.0)
       koala (~> 3.0)
@@ -822,7 +821,7 @@ GEM
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
-    json (2.3.0)
+    json (2.3.1)
     json-jwt (1.13.0)
       activesupport (>= 4.2)
       aes_key_wrap
