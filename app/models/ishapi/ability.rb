@@ -56,7 +56,7 @@ class Ishapi::Ability
     can [ :my_index, :show ], Report do |report|
       report.is_public
     end
-    
+
     can [ :fb_sign_in, :long_term_token, :open_permission, :welcome_home ], Ishapi
 
     can [ :index, :show ], Site
@@ -66,11 +66,14 @@ class Ishapi::Ability
       tag.is_public
     end
 
+    #
+    # V
+    #
     can [ :index ], Venue
     can [ :show ], Venue do |venue|
       venue.is_public
     end
-    can [ :index ], Video
+    can [ :index, :my_index ], Video
     can [ :show ], Video do |video|
       video.is_public
     end

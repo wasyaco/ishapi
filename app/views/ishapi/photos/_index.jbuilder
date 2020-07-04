@@ -1,6 +1,7 @@
 
 #
 # ishapi / photos / _index
+# @deprecated, ishapi / galleries / _show is preferred
 #
 
 json.photos do

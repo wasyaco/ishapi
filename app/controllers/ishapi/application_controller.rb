@@ -7,7 +7,7 @@ module Ishapi
 
     # before_action :check_profile, except: [ :test ]
     before_action :set_current_ability
-    
+
     check_authorization
     skip_before_action :verify_authenticity_token
 
@@ -26,9 +26,19 @@ module Ishapi
         "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&" +
         "fb_exchange_token=#{accessToken}"
       j = JSON.parse response.body
+      puts! j, 'fb response'
       @long_term_token = j['access_token']
 
-      render json: { long_term_token: @long_term_token }
+      # get user email
+      @graph            = Koala::Facebook::API.new( accessToken )
+      @me               = @graph.get_object( 'me', :fields => 'email' )
+      @current_user     = User.where( :email => @me['email'] ).first
+      @profile          = @current_user.profile
+
+      # send the jwt to client
+      @jwt_token = encode(user_id: @current_user.id)
+
+      render json: { long_term_token: @long_term_token, jwt_token: @jwt_token }
     end
 
     #
@@ -75,9 +85,9 @@ module Ishapi
         # puts! result, 'googleauth result'
 
         decoded_token = JWT.decode params[:idToken], nil, false
-        
+
         @current_user = User.find_by email: decoded_token[0]['email']
-        
+
       elsif 'facebook' == provider
         # accessToken ||= params[:fb_long_access_token]
 
@@ -101,7 +111,7 @@ module Ishapi
           @current_user     = User.where( :email => @me['email'] ).first
           @current_user   ||= User.create! email: @me['email'], password: SecureRandom.urlsafe_base64
 
-          @current_profile = @current_user.profile          
+          @current_profile = @current_user.profile
           if !@current_profile
             begin
               g = Gallery.find '5e1495e2d697f768ad0779eb'
@@ -120,9 +130,15 @@ module Ishapi
 
         puts! @current_user, 'current_user'
         puts! @current_profile, 'current_profile'
-        # byebug
+
+      elsif 'jwt' == provider
+        decoded = decode(params[:jwt_token])
+        puts! decoded, 'decoded'
+        @current_user = User.find decoded[:user_id]
+
       else
         puts! 'check_multiprofile(): no access token'
+        raise "ww1 - not implemented"
       end
 
       sign_in @current_user, scope: :user
@@ -132,13 +148,16 @@ module Ishapi
     # this doesn't generate long-lived token, doesn't update user_profile
     # this is only for facebook now
     def check_profile
+      puts! params, 'params'
+
       # return check_multiprofile 'google'
-      return check_multiprofile 'facebook'
+      # return check_multiprofile 'facebook'
+      return check_multiprofile 'jwt'
 
       # puts! params, 'params'
       # puts! current_user, 'current_user'
       # puts! @current_user, '@current_user'
-      
+
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
       accessToken ||= params[:accessToken]
@@ -201,7 +220,7 @@ module Ishapi
       @current_order   = @current_profile.current_order
       # orders.where( :submitted_at => nil ).first || ::CoTailors::Order.new( :profile_id => @current_profile.id )
     end
-    
+
     def get_long_token accessToken
       url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&" +
             "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&fb_exchange_token=#{accessToken}"
@@ -219,6 +238,18 @@ module Ishapi
     def puts! a, b=''
       puts "+++ +++ #{b}"
       puts a.inspect
+    end
+
+    # jwt
+    def encode(payload, exp = 2.hours.from_now)
+      payload[:exp] = exp.to_i
+      JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
+    end
+
+    # jwt
+    def decode(token)
+      decoded = JWT.decode(token, Rails.application.secrets.secret_key_base.to_s)[0]
+      HashWithIndifferentAccess.new decoded
     end
 
   end

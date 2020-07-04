@@ -7,7 +7,7 @@ Ishapi::Engine.routes.draw do
   get 'cities',                :to => 'cities#index'
   get 'cities/view/:cityname', :to => 'cities#show'
   get 'cities/features',       :to => 'cities#features'
- 
+
   post 'co_tailors/orders',                 :to => 'orders#create'
   post 'co_tailors/order_items',            :to => 'order_items#create'
   post 'co_tailors/measurements',           :to => 'measurements#update'
@@ -16,7 +16,7 @@ Ishapi::Engine.routes.draw do
   end
 
   post 'do_purchase', to: 'gameui#do_purchase'
-  
+
   get 'events/view/:eventname',      :to => 'events#show'
 
   get  'galleries',                   :to => 'galleries#index'
@@ -35,8 +35,10 @@ Ishapi::Engine.routes.draw do
   namespace :my do
     # post 'reports', :to => 'reports#index'
     get  'reports', :to => 'reports#index'
+    get 'videos', to: 'videos#index'
+    post 'videos', to: 'videos#index'
   end
-  
+
   post 'payments', :to => 'payments#create'
 
   get 'profiles/view/:username', :to => 'user_profiles#show'
@@ -64,7 +66,7 @@ Ishapi::Engine.routes.draw do
 
   get 'venues', :to => 'venues#index'
   get 'venues/view/:venuename', :to => 'venues#show'
- 
+
   resources :videos
 
 end

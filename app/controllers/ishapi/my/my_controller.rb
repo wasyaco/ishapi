@@ -3,9 +3,18 @@ module Ishapi
   module My
     class MyController < Ishapi::ApplicationController
 
-      before_action :set_profile
+      # before_action :set_profile # this is DoS on FB - disabled
+      before_action :do_login
 
       private
+
+      def do_login
+        puts! params, 'params'
+
+        token = decode(params[:jwtToken])
+        puts! token, 'token'
+        @current_user = User.find(token["user_id"])
+      end
 
       def set_profile
         begin

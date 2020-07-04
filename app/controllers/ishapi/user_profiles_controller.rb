@@ -10,6 +10,8 @@ module Ishapi
     end
 
     def my
+      puts! params, 'params 233'
+
       @profile = current_user.profile
       authorize! :show, @profile
     end
