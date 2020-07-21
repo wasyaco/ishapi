@@ -11,7 +11,8 @@ gem 'kaminari'
 gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 gem 'devise'
-gem 'aws-sdk', '< 3.0'
+gem 'aws-sdk'
+gem 'aws-sdk-s3'
 gem 'rack-throttle'
 gem 'jbuilder'
 gem 'rails-controller-testing'
@@ -22,4 +23,8 @@ group :development, :test do
   gem 'simplecov'
   gem 'byebug'
   gem 'factory_bot_rails'
+
+  gem 'httparty'
+  gem 'koala'
+  gem 'jwt'
 end

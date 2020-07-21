@@ -10,7 +10,7 @@ json.newsitems do
     json.name        item.name
     json.created_at  item.created_at
     json.updated_at  item.updated_at
-    
+
     if item.gallery
       json.item_type    'gallery'
       json.name         item.gallery.name
@@ -39,7 +39,7 @@ json.newsitems do
       json.username   item.report.user_profile.name if item.report.user_profile
 
       if item.report.photo
-        json.photo_s169_url item.report.photo.photo.url( :s169 ) 
+        json.photo_s169_url item.report.photo.photo.url( :s169 )
         json.photo_thumb2_url item.report.photo.photo.url( :thumb2 )
       end
 
@@ -51,7 +51,7 @@ json.newsitems do
         json.is_purchased current_user.profile.has_premium_purchase( item.report )
       end
     end
-    
+
     if item.video_id
       json.partial! 'ishapi/videos/show', :video => Video.unscoped.find( item.video_id )
     end
@@ -60,6 +60,6 @@ json.newsitems do
       json.item_type 'photo'
       json.partial! 'ishapi/photos/index', :photos => [ item.photo ]
     end
-    
+
   end
 end

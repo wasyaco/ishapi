@@ -1,6 +1,6 @@
 Ishapi::Engine.routes.draw do
-  root :to => 'api#home'
-  post 'home', :to => 'api#home'
+  root :to => 'application#home'
+  post 'home', :to => 'application#home'
 
   resources :addresses
 
@@ -29,17 +29,18 @@ Ishapi::Engine.routes.draw do
   get 'maps', to: 'maps#index'
   get 'maps/view/:slug', to: 'maps#show'
   get 'markers/view/:slug', to: 'maps#show_marker'
-
-  get 'my/newsitems', to: 'newsitems#index'
-  get 'my/account',   to: 'user_profiles#my'
+  get "/my/account", to: "my/my#account"
   namespace :my do
-    # post 'reports', :to => 'reports#index'
-    get  'reports', :to => 'reports#index'
-    get 'videos', to: 'videos#index'
-    post 'videos', to: 'videos#index'
+    get 'newsitems', to: 'newsitems#index'
+    get  'reports',  to: 'reports#index'
+    get  'videos',   to: 'videos#index'
+    post 'videos',   to: 'videos#index'
   end
 
   post 'payments', :to => 'payments#create'
+  post 'payments2', :to => 'payments#create2' # @TODO: change
+  get  'payments2', to: 'payments#create2'
+  post  'stripe_confirm', to: 'payments#stripe_confirm' # @TODO: test-drive
 
   get 'profiles/view/:username', :to => 'user_profiles#show'
 

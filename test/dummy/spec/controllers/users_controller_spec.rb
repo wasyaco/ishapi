@@ -36,7 +36,7 @@ describe Ishapi::UsersController do
       # byebug
       @fake_user.save.should eql true
     end
-    
+
     it 'order items' do
       get :show, :format => :json
       result = JSON.parse response.body

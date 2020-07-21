@@ -1,4 +1,4 @@
- 
+
 #
 # ishapi / sites / show
 #
@@ -22,7 +22,7 @@ json.cache! key do
   json.partial! 'ishapi/newsitems/index', :newsitems => @newsitems,     :resource => @site
   json.partial! 'ishapi/reports/index',   :reports   => @reports,       :resource => @site
   json.partial! 'ishapi/videos/index',    :videos    => @site.videos
-  
+
   json.feature_tags do
     json.array! @feature_tags do |feature_tag|
       json.partial! 'ishapi/tags/widget', :tag => feature_tag

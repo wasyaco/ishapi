@@ -43,6 +43,11 @@ class Ishapi::Ability
     can [ :index, :show ], Event
 
     #
+    # Ish::P
+    #
+    can [ :create ], Ish::Payment
+
+    #
     # G
     #
     can [ :index ], Gallery

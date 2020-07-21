@@ -17,8 +17,9 @@ end
 
 class UserStub
   def initialize args = {}
-    @profile    = IshModels::UserProfile.find_or_create_by( :email => 'test@gmail.com' )
-    @profile.user ||= FactoryBot.create :user
+    user        = User.find_or_create_by!( email: 'test@gmail.com' )
+    @profile    = IshModels::UserProfile.find_or_create_by!( email: 'test@gmail.com', name: 'name', user: user )
+
     # address     = CoTailors::Address.find_or_create_by( :name => 'abba-addr', :address_1 => 'blahblah 1' )
     # measurement = CoTailors::ProfileMeasurement.create :neck_around => 22.2
     # order       = CoTailors::Order.create
@@ -38,18 +39,22 @@ end
 
 def do_setup
   User.unscoped.destroy
+  @user = @fake_user = User.create! :email => 'test@gmail.com', :password => '123412341234', :profile => @fake_profile
+
   IshModels::UserProfile.unscoped.destroy
-  Gallery.unscoped.destroy
-  @fake_profile = IshModels::UserProfile.create :email => 'test@gmail.com', :user => @face_user, :name => 'Profile Name'
-  @fake_user = User.create :email => 'test@gmail.com', :password => '123412341234', :profile => @fake_profile
-  @fake_measurements = CoTailors::ProfileMeasurement.create :neck_around => 22.2, 
+  @fake_profile = IshModels::UserProfile.create! :email => 'test@gmail.com', :name => 'Profile Name', user: @fake_user
+
+  @fake_measurements = CoTailors::ProfileMeasurement.create :neck_around => 22.2,
                                                             :units => CoTailors::ProfileMeasurement::UNITS_INCHES,
                                                             :profile => @fake_profile
+
   @fake_address = CoTailors::Address.create :name => 'addr-name', :address_1 => 'addr-1', :profile => @fake_profile
 
   City.unscoped.destroy
   @city         = City.create( :name => 'xx-test-city', :cityname => 'text-cityname' )
-  @feature_city = City.create( :name => 'feature city', :cityname => 'feature-city', :is_feature => true )
+  # @feature_city = City.create( :name => 'feature city', :cityname => 'feature-city', :is_feature => true )
+
+  Gallery.unscoped.destroy
 
   Report.unscoped.destroy
   @report = FactoryBot.create :report

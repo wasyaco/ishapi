@@ -22,14 +22,11 @@ module Ishapi
 
       params['domain'] = 'tgm.piousbox.com'
 
-      response = HTTParty.get "https://graph.facebook.com/v5.0/oauth/access_token?grant_type=fb_exchange_token&" +
+      response = ::HTTParty.get "https://graph.facebook.com/v5.0/oauth/access_token?grant_type=fb_exchange_token&" +
         "client_id=#{FB[params['domain']][:app]}&client_secret=#{FB[params['domain']][:secret]}&" +
         "fb_exchange_token=#{accessToken}"
       j = JSON.parse response.body
-      puts! j, 'fb response'
-      @long_term_token = j['access_token']
-
-      # get user email
+      @long_term_token  = j['access_token']
       @graph            = Koala::Facebook::API.new( accessToken )
       @me               = @graph.get_object( 'me', :fields => 'email' )
       @current_user     = User.where( :email => @me['email'] ).first
@@ -38,7 +35,18 @@ module Ishapi
       # send the jwt to client
       @jwt_token = encode(user_id: @current_user.id)
 
-      render json: { long_term_token: @long_term_token, jwt_token: @jwt_token }
+      render json: {
+        email: @current_user.email,
+        jwt_token: @jwt_token,
+        long_term_token: @long_term_token,
+        n_unlocks: @current_user.profile.n_unlocks,
+      }
+    end
+
+    def home
+      authorize! :welcome_home, Ishapi
+      render :json => { :status => :ok, :message => 'Ishapi::ApiController.home',
+                        :n_reports => Report.count, :n_cities => City.count }
     end
 
     #
@@ -146,7 +154,6 @@ module Ishapi
     end
 
     # this doesn't generate long-lived token, doesn't update user_profile
-    # this is only for facebook now
     def check_profile
       puts! params, 'params'
 

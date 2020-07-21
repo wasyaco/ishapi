@@ -2,6 +2,10 @@ require_dependency "ishapi/application_controller"
 module Ishapi
   class PaymentsController < ApplicationController
 
+    ##
+    ## this is for invoices on wasya.co, isn't it?
+    ## 20200712
+    ##
     def create
       authorize! :open_permission, ::Ishapi
       begin
@@ -18,11 +22,10 @@ module Ishapi
           :amount => amount_cents,
           :currency => 'usd',
           :source => params[:token][:id],
-          :destination => { 
+          :destination => {
             :account => acct,
           }
         )
-        # puts! charge, 'charge'
 
         payment.charge = JSON.parse( charge.to_json )
         if payment.save
@@ -34,6 +37,60 @@ module Ishapi
         puts! e, 'e'
         render :status => 404, :json => {}
       end
+    end
+
+    # @TODO: test-drive this!
+    def create2
+      authorize! :create, ::Ish::Payment
+      puts! @current_user, 'current_user'
+
+      begin
+        amount_cents  = 503 # @TODO: change
+
+        ::Stripe.api_key = STRIPE_SK
+        intent = Stripe::PaymentIntent.create({
+          amount: amount_cents,
+          currency: 'usd',
+          metadata: { integration_check: "accept_a_payment" },
+        })
+        puts! intent, 'intent'
+
+        payment = Ish::Payment.create!(
+          client_secret: intent.client_secret,
+          email: @current_user.email,
+          payment_intent_id: intent.id,
+          profile: @current_user.profile )
+
+        render json: { client_secret: intent.client_secret }
+      rescue Mongoid::Errors::DocumentNotFound => e
+        puts! e, 'e'
+        render :status => 404, :json => e
+      end
+    end
+
+    def stripe_confirm
+      authorize! :open_permission, ::Ishapi
+      payload = request.body.read
+      event = nil
+      begin
+        event = Stripe::Event.construct_from(JSON.parse(payload, symbolize_names: true))
+      rescue StandardError => e
+        puts! e, 'eee'
+        render status: 400, json: { status: :not_ok }
+        return
+      end
+
+      puts! event, 'event'
+      payment_intent = event.data.object
+      puts! payment_intent, 'payment_intent'
+
+      payment = Ish::Payment.where( payment_intent_id: payment_intent.id ).first
+      if payment
+        puts! 'GREAT SUCCESS'
+        payment.update_attributes( status: :confirmed )
+      end
+
+      render status: 200, json: { status: :ok }
     end
 
   end

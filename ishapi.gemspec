@@ -28,5 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-throttle", "~> 0.5"
   s.add_dependency "stripe"
   s.add_dependency "jbuilder", "~> 2.7"
+  s.add_dependency "httparty"
 
 end

@@ -4,7 +4,16 @@ module Ishapi
     class MyController < Ishapi::ApplicationController
 
       # before_action :set_profile # this is DoS on FB - disabled
-      before_action :do_login
+      # before_action :do_login
+      before_action :check_profile
+
+      def account
+        puts! params, 'my account'
+
+        @profile = current_user.profile
+        authorize! :show, @profile
+      end
+
 
       private
 
