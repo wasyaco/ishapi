@@ -40,6 +40,7 @@ Ishapi::Engine.routes.draw do
   post 'payments', :to => 'payments#create'
   post 'payments2', :to => 'payments#create2' # @TODO: change
   get  'payments2', to: 'payments#create2'
+  post 'payments/unlock', to: 'payments#unlock'
   post  'stripe_confirm', to: 'payments#stripe_confirm' # @TODO: test-drive
 
   get 'profiles/view/:username', :to => 'user_profiles#show'

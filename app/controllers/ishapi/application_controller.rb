@@ -30,10 +30,11 @@ module Ishapi
       @graph            = Koala::Facebook::API.new( accessToken )
       @me               = @graph.get_object( 'me', :fields => 'email' )
       @current_user     = User.where( :email => @me['email'] ).first
-      @profile          = @current_user.profile
+
+      puts! @current_user, '#long_term_token @current_user'
 
       # send the jwt to client
-      @jwt_token = encode(user_id: @current_user.id)
+      @jwt_token = encode(user_id: @current_user.id.to_s)
 
       render json: {
         email: @current_user.email,
@@ -81,7 +82,6 @@ module Ishapi
     ## Does not crap out if accessToken is missing
     def soft_check_long_term_token
       check_long_term_token soft=true
-      # puts! @profile, 'soft_check_long_term_token() profile'
     end
 
     def check_multiprofile provider = 'google'
@@ -142,7 +142,7 @@ module Ishapi
       elsif 'jwt' == provider
         decoded = decode(params[:jwt_token])
         puts! decoded, 'decoded'
-        @current_user = User.find decoded[:user_id]
+        @current_user = User.find decoded['user_id']
 
       else
         puts! 'check_multiprofile(): no access token'

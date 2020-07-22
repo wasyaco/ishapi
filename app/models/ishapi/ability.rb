@@ -13,15 +13,17 @@ class Ishapi::Ability
         can :manage, :all
       end
 
+      can [ :update ], ::CoTailors::Address do |address|
+        puts [ user.inspect, address.inspect ], '+++ user in cancancan'
+        true
+      end
+
       can [ :show ], Gallery do |gallery|
         gallery.user_profile == user.profile
       end
       can [ :do_purchase ], ::Gameui
 
-      can [ :update ], ::CoTailors::Address do |address|
-        puts [ user.inspect, address.inspect ], '+++ user in cancancan'
-        true
-      end
+      can [ :create, :unlock ], ::Ish::Payment
 
       can [ :buy_stars ], ::IshModels::UserProfile
 
@@ -45,7 +47,7 @@ class Ishapi::Ability
     #
     # Ish::P
     #
-    can [ :create ], Ish::Payment
+
 
     #
     # G

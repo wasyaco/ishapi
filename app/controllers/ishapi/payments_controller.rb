@@ -2,6 +2,8 @@ require_dependency "ishapi/application_controller"
 module Ishapi
   class PaymentsController < ApplicationController
 
+    before_action :check_profile, only: %i| create2 unlock |
+
     ##
     ## this is for invoices on wasya.co, isn't it?
     ## 20200712
@@ -39,10 +41,9 @@ module Ishapi
       end
     end
 
-    # @TODO: test-drive this!
+    ## This is for guyd _vp_ 20200721
     def create2
       authorize! :create, ::Ish::Payment
-      puts! @current_user, 'current_user'
 
       begin
         amount_cents  = 503 # @TODO: change
@@ -53,13 +54,12 @@ module Ishapi
           currency: 'usd',
           metadata: { integration_check: "accept_a_payment" },
         })
-        puts! intent, 'intent'
 
         payment = Ish::Payment.create!(
           client_secret: intent.client_secret,
           email: @current_user.email,
           payment_intent_id: intent.id,
-          profile: @current_user.profile )
+          profile_id: @current_user.profile.id )
 
         render json: { client_secret: intent.client_secret }
       rescue Mongoid::Errors::DocumentNotFound => e
@@ -68,6 +68,7 @@ module Ishapi
       end
     end
 
+    ## webhook
     def stripe_confirm
       authorize! :open_permission, ::Ishapi
       payload = request.body.read
@@ -75,20 +76,40 @@ module Ishapi
       begin
         event = Stripe::Event.construct_from(JSON.parse(payload, symbolize_names: true))
       rescue StandardError => e
-        puts! e, 'eee'
+        puts! e, 'e'
         render status: 400, json: { status: :not_ok }
         return
       end
 
-      puts! event, 'event'
       payment_intent = event.data.object
-      puts! payment_intent, 'payment_intent'
 
       payment = Ish::Payment.where( payment_intent_id: payment_intent.id ).first
-      if payment
-        puts! 'GREAT SUCCESS'
+      if payment && payment_intent['status'] == 'succeeded'
         payment.update_attributes( status: :confirmed )
+        payment.profile.update_attributes!( n_unlocks: payment.profile.n_unlocks + 5 )
       end
+
+      render status: 200, json: { status: :ok }
+    end
+
+    def unlock
+      authorize! :unlock, ::Ish::Payment
+
+      existing = @current_user.profile.premium_purchases.where( purchased_class: params['kind'],
+        purchased_id: params['id'] ).first
+      if existing
+        render status: 200, json: { status: :ok, message: 'already purchased' }
+        return
+      end
+
+      @current_user.profile.update_attributes n_unlocks: @current_user.profile.n_unlocks - 1
+      purchase = ::Gameui::PremiumPurchase.create!(
+        item: Object.const_get(params['kind']).unscoped.find(params['id']),
+        purchased_class: params['kind'],
+        purchased_id: params['id'],
+        user_profile: @current_user.profile,
+      )
+      puts! purchase, 'this purchase'
 
       render status: 200, json: { status: :ok }
     end

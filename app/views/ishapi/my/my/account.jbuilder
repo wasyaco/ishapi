@@ -8,6 +8,8 @@ json.n_galleries @profile.galleries.count
 json.n_videos    @profile.videos.count
 json.n_stars     @profile.n_stars
 
+json.n_unlocks @profile.n_unlocks
+
 if @profile.current_city
   json.current_city @profile.current_city
 end
