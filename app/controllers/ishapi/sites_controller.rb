@@ -3,6 +3,8 @@ require_dependency "ishapi/application_controller"
 module Ishapi
   class SitesController < ApplicationController
 
+    before_action :check_profile_optionally, only: %i| show |
+
     def index
       authorize! :index, ::Site
       @sites = ::Site.all

@@ -153,6 +153,15 @@ module Ishapi
       set_current_ability
     end
 
+    # same as check_profile but doesn't error out when jwt_token is missing
+    def check_profile_optionally
+      if !params[:jwt_token]
+        @current_user = User.new profile: Profile.new
+      else
+        check_profile
+      end
+    end
+
     # this doesn't generate long-lived token, doesn't update user_profile
     def check_profile
       puts! params, 'params'

@@ -15,8 +15,6 @@ Ishapi::Engine.routes.draw do
   namespace :co_tailors do
   end
 
-  post 'do_purchase', to: 'gameui#do_purchase'
-
   get 'events/view/:eventname',      :to => 'events#show'
 
   get  'galleries',                   :to => 'galleries#index'
@@ -37,10 +35,11 @@ Ishapi::Engine.routes.draw do
     post 'videos',   to: 'videos#index'
   end
 
+  post 'do_purchase', to: 'gameui#do_purchase' # @TODO: rename to just purchase, or destroy endpoint
   post 'payments', :to => 'payments#create'
   post 'payments2', :to => 'payments#create2' # @TODO: change
   get  'payments2', to: 'payments#create2'
-  post 'payments/unlock', to: 'payments#unlock'
+  post 'payments/unlock', to: 'payments#unlock' # do_purchase
   post  'stripe_confirm', to: 'payments#stripe_confirm' # @TODO: test-drive
 
   get 'profiles/view/:username', :to => 'user_profiles#show'

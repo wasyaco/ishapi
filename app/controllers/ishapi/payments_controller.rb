@@ -94,22 +94,16 @@ module Ishapi
 
     def unlock
       authorize! :unlock, ::Ish::Payment
+      item = Object::const_get(params['kind']).find params['id']
 
-      existing = @current_user.profile.premium_purchases.where( purchased_class: params['kind'],
-        purchased_id: params['id'] ).first
+      existing = Purchase.where( user_profile: @current_user.profile, item: item ).first
       if existing
         render status: 200, json: { status: :ok, message: 'already purchased' }
         return
       end
 
-      @current_user.profile.update_attributes n_unlocks: @current_user.profile.n_unlocks - 1
-      purchase = ::Gameui::PremiumPurchase.create!(
-        item: Object.const_get(params['kind']).unscoped.find(params['id']),
-        purchased_class: params['kind'],
-        purchased_id: params['id'],
-        user_profile: @current_user.profile,
-      )
-      puts! purchase, 'this purchase'
+      @current_user.profile.update_attributes n_unlocks: @current_user.profile.n_unlocks - 1 # @TODO: the number is variable
+      purchase = ::Gameui::PremiumPurchase.create!( item: item, user_profile: @current_user.profile, )
 
       render status: 200, json: { status: :ok }
     end

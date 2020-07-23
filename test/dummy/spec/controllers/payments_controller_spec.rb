@@ -16,28 +16,23 @@ describe Ishapi::PaymentsController do
       ::Gameui::PremiumPurchase.destroy_all
     end
 
-    # herehere
     it 'happy path, and duplicates are not unlocked' do
-      puts! @report, 'report'
-
-      n = ::Gameui::PremiumPurchase.all.count
-      n.should eql 0
-
-      @user.profile.premium_purchases.where( purchased_class: 'Report', purchased_id: @report.id ).count.should eql 0
+      ::Gameui::PremiumPurchase.all.count.should eql 0
+      @user.profile.premium_purchases.where( user_profile_id: @user.profile.id, item: @report ).count.should eql 0
       @user.profile.n_unlocks.should eql 5
 
       post :unlock, params: { kind: 'Report', id: @report.id }, format: :json
       response.should be_success
       ::Gameui::PremiumPurchase.all.count.should eql 1
+
       @user.reload
       @user.profile.n_unlocks.should eql 4
-      ::Gameui::PremiumPurchase.where( user_profile_id: @user.profile.id,
-        purchased_class: 'Report', purchased_id: @report.id ).count.should eql 1
+      @user.profile.has_premium_purchase( @report ).should eql true
+      ::Gameui::PremiumPurchase.unscoped.where( user_profile_id: @user.profile.id, item: @report ).count.should eql 1
 
       # duplicates are not unlocked
       post :unlock, params: { kind: 'Report', id: @report.id }, format: :json
-      ::Gameui::PremiumPurchase.where( user_profile_id: @user.profile.id,
-        purchased_class: 'Report', purchased_id: @report.id ).count.should eql 1
+      ::Gameui::PremiumPurchase.where( user_profile_id: @user.profile.id, item: @report ).count.should eql 1
     end
   end
 

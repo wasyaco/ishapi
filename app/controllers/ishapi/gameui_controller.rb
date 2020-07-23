@@ -21,7 +21,7 @@ module Ishapi
         :amount => params[:amount],
         :currency => 'usd',
         :source => params[:stripeToken],
-        :destination => { 
+        :destination => {
           :account => acct,
         }
       )
@@ -46,7 +46,7 @@ module Ishapi
     def do_purchase
       authorize! :do_purchase, ::Gameui
       item = params[:className].constantize.find_by_slug( params[:slug] )
-      
+
       raise 'no such item'     if !item
       raise 'too little funds' if @profile.n_stars < item.premium_tier
 
