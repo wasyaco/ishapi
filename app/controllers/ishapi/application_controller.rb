@@ -140,8 +140,15 @@ module Ishapi
         puts! @current_profile, 'current_profile'
 
       elsif 'jwt' == provider
-        decoded = decode(params[:jwt_token])
-        puts! decoded, 'decoded'
+        begin
+          decoded = decode(params[:jwt_token])
+        rescue JWT::ExpiredSignature
+          # @TODO: refactor [ref-5]
+          @current_user = User.new profile: Profile.new
+          sign_in @current_user, scope: :user
+          set_current_ability
+          return
+        end
         @current_user = User.find decoded['user_id']
 
       else
@@ -149,6 +156,7 @@ module Ishapi
         raise "ww1 - not implemented"
       end
 
+      # @TODO: refactor [ref-5]
       sign_in @current_user, scope: :user
       set_current_ability
     end
