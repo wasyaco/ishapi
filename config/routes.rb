@@ -29,6 +29,7 @@ Ishapi::Engine.routes.draw do
   get 'markers/view/:slug', to: 'maps#show_marker'
   get "/my/account", to: "my/my#account"
   namespace :my do
+    get 'galleries', to: 'galleries#index'
     get 'newsitems', to: 'newsitems#index'
     get  'reports',  to: 'reports#index'
     get  'videos',   to: 'videos#index'

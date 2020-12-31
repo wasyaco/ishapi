@@ -18,6 +18,7 @@ class Ishapi::Ability
         true
       end
 
+      can [ :my_index ], Gallery
       can [ :show ], Gallery do |gallery|
         gallery.user_profile == user.profile
       end

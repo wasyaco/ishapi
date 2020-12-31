@@ -56,6 +56,8 @@ module Ishapi
     private
 
     def append_long_term_token
+      puts! nil, 'append_long_term_token'
+
       if @long_term_token
         response.body = JSON.parse(response.body).merge({ long_term_token: @long_term_token }).to_json
       end

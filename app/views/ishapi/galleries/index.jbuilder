@@ -11,7 +11,7 @@ json.array! @galleries do |gallery|
   json.subhead     gallery.subhead
   json.username    gallery.user_profile.name
   json.cityname    gallery.city.name    if gallery.city
-  json.tagname     gallery.tag.name_seo if gallery.tag
+  json.tag_names   gallery.tags.map &:name_seo
   json.venuename   gallery.venue.name   if gallery.venue
   json.partial! 'ishapi/photos/index', :photos => gallery.photos
 end

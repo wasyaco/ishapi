@@ -39,10 +39,11 @@ end
 
 def do_setup
   User.unscoped.destroy
-  @user = @fake_user = User.create! :email => 'test@gmail.com', :password => '123412341234', :profile => @fake_profile
+  @user = @fake_user = User.create! :email => 'test@gmail.com', :password => '123412341234'
 
   IshModels::UserProfile.unscoped.destroy
-  @fake_profile = IshModels::UserProfile.create! :email => 'test@gmail.com', :name => 'Profile Name', user: @fake_user
+  @fake_profile = IshModels::UserProfile.create! :email => 'test@gmail.com', :name => 'Profile Name', user: @user
+  @user.profile = @fake_profile; @user.save
 
   @fake_measurements = CoTailors::ProfileMeasurement.create :neck_around => 22.2,
                                                             :units => CoTailors::ProfileMeasurement::UNITS_INCHES,

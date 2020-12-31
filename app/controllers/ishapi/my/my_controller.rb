@@ -8,20 +8,14 @@ module Ishapi
       before_action :check_profile
 
       def account
-        puts! params, 'my account'
-
         @profile = current_user.profile
         authorize! :show, @profile
       end
 
-
       private
 
       def do_login
-        puts! params, 'params'
-
         token = decode(params[:jwtToken])
-        puts! token, 'token'
         @current_user = User.find(token["user_id"])
       end
 
