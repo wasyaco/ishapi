@@ -3,7 +3,6 @@ class Ishapi::Ability
   include ::CanCan::Ability
 
   def initialize user
-
     #
     # signed in user
     #

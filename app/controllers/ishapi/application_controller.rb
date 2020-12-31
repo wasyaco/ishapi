@@ -6,7 +6,7 @@ module Ishapi
     layout :false
 
     # before_action :check_profile, except: [ :test ]
-    before_action :set_current_ability
+    # before_action :set_current_ability
 
     check_authorization
     skip_before_action :verify_authenticity_token
@@ -81,6 +81,7 @@ module Ishapi
         end
       end
     end
+
     ## Does not crap out if accessToken is missing
     def soft_check_long_term_token
       check_long_term_token soft=true
@@ -142,17 +143,9 @@ module Ishapi
         puts! @current_profile, 'current_profile'
 
       elsif 'jwt' == provider
-        begin
-          decoded = decode(params[:jwt_token])
-        rescue JWT::ExpiredSignature
-          # @TODO: refactor [ref-5]
-          @current_user = User.new profile: Profile.new
-          sign_in @current_user, scope: :user
-          set_current_ability
-          return
-        end
+        decoded = decode(params[:jwt_token])
+        puts! decoded, 'decoded'
         @current_user = User.find decoded['user_id']
-
       else
         puts! 'check_multiprofile(): no access token'
         raise "ww1 - not implemented"
@@ -162,6 +155,8 @@ module Ishapi
       sign_in @current_user, scope: :user
       set_current_ability
     end
+
+
 
     # same as check_profile but doesn't error out when jwt_token is missing
     def check_profile_optionally
@@ -264,6 +259,14 @@ module Ishapi
     def puts! a, b=''
       puts "+++ +++ #{b}"
       puts a.inspect
+    end
+
+    # jwt
+    def check_jwt
+      decoded = decode(params[:jwt_token])
+      puts! decoded, 'decoded'
+      @current_user = User.find decoded['user_id']
+      set_current_ability
     end
 
     # jwt
