@@ -8,15 +8,13 @@ module Ishapi
     # before_action :check_profile, except: [ :test ]
     # before_action :set_current_ability
 
-    check_authorization
+    check_authorization except: [ :long_term_token ]
     skip_before_action :verify_authenticity_token
 
     def test
     end
 
     def long_term_token
-      authorize! :long_term_token, ::Ishapi
-
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:accessToken]
 
