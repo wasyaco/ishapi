@@ -29,8 +29,6 @@ module Ishapi
       @me               = @graph.get_object( 'me', :fields => 'email' )
       @current_user     = User.where( :email => @me['email'] ).first
 
-      puts! @current_user, '#long_term_token @current_user'
-
       # send the jwt to client
       @jwt_token = encode(user_id: @current_user.id.to_s)
 
@@ -54,8 +52,6 @@ module Ishapi
     private
 
     def append_long_term_token
-      puts! nil, 'append_long_term_token'
-
       if @long_term_token
         response.body = JSON.parse(response.body).merge({ long_term_token: @long_term_token }).to_json
       end
@@ -137,12 +133,8 @@ module Ishapi
           @current_user     = current_user  if Rails.env.test?
         end
 
-        puts! @current_user, 'current_user'
-        puts! @current_profile, 'current_profile'
-
       elsif 'jwt' == provider
         decoded = decode(params[:jwt_token])
-        puts! decoded, 'decoded'
         @current_user = User.find decoded['user_id']
       else
         puts! 'check_multiprofile(): no access token'
@@ -156,12 +148,17 @@ module Ishapi
 
 
 
-    # same as check_profile but doesn't error out when jwt_token is missing
+    # same as check_profile but doesn't error out when jwt_token is missing or expired
     def check_profile_optionally
       if !params[:jwt_token]
         @current_user = User.new profile: Profile.new
       else
-        check_profile
+        begin
+          check_profile
+        rescue JWT::ExpiredSignature
+          Rails.logger.info("JWT::ExpiredSignature")
+          @current_user = User.new profile: Profile.new
+        end
       end
     end
 
@@ -172,10 +169,6 @@ module Ishapi
       # return check_multiprofile 'google'
       # return check_multiprofile 'facebook'
       return check_multiprofile 'jwt'
-
-      # puts! params, 'params'
-      # puts! current_user, 'current_user'
-      # puts! @current_user, '@current_user'
 
       accessToken   = request.headers[:accessToken]
       accessToken ||= params[:fb_long_access_token]
@@ -248,10 +241,9 @@ module Ishapi
       return token # ['access_token']
     end
 
-    def set_current_ability
-      # puts! current_user.email, '#set_current_ability() :: @current_user'
+    def current_ability
       @current_user ||= User.new({ profile: ::IshModels::UserProfile.new })
-      @current_ability ||= ::Ishapi::Ability.new( @current_user )
+      @current_ability ||= Ishapi::Ability.new( @current_user )
     end
 
     def puts! a, b=''
