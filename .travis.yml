@@ -3,5 +3,4 @@ install: true
 before_install:
   - gem update --system
 script:
- - cd test/dummy && bundle install --gemfile=./Gemfile --path vendor/bundle
- - RAILS_ENV=test bundle exec rspec spec -f documentation
+  - BUNDLE_GEMFILE=test/dummy/Gemfile bundle exec rspec test/dummy/spec -I test/dummy/spec
