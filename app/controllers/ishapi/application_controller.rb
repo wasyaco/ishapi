@@ -5,9 +5,6 @@ module Ishapi
     protect_from_forgery :prepend => true, :with => :exception
     layout :false
 
-    # before_action :check_profile, except: [ :test ]
-    # before_action :set_current_ability
-
     check_authorization except: [ :long_term_token ]
     skip_before_action :verify_authenticity_token
 
@@ -143,7 +140,7 @@ module Ishapi
 
       # @TODO: refactor [ref-5]
       sign_in @current_user, scope: :user
-      set_current_ability
+      current_ability
     end
 
 
@@ -253,10 +250,15 @@ module Ishapi
 
     # jwt
     def check_jwt
-      decoded = decode(params[:jwt_token])
-      puts! decoded, 'decoded'
-      @current_user = User.find decoded['user_id']
-      set_current_ability
+      begin
+        decoded = decode(params[:jwt_token])
+        puts! decoded, 'decoded'
+        @current_user = User.find decoded['user_id']
+      rescue JWT::ExpiredSignature
+        Rails.logger.info("JWT::ExpiredSignature")
+        @current_user = User.new
+      end
+      current_ability
     end
 
     # jwt
