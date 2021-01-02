@@ -256,8 +256,10 @@ module Ishapi
         @current_user = User.find decoded['user_id']
       rescue JWT::ExpiredSignature
         Rails.logger.info("JWT::ExpiredSignature")
-        @current_user = User.new
+      rescue JWT::DecodeError
+        Rails.logger.info("JWT::DecodeError")
       end
+      @current_user ||= User.new
       current_ability
     end
 
