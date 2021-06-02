@@ -10,8 +10,8 @@ json.cache! this_key do
     json.is_premium   @gallery.is_premium
     json.is_purchased false
 
-    json.partial! 'ishapi/galleries/show', gallery: @gallery   
-    json.partial! 'ishapi/photos/index', :photos => [ @gallery.photos[0] ]
+    # json.partial! 'ishapi/galleries/show', gallery: @gallery
+    # json.partial! 'ishapi/photos/index', :photos => [ @gallery.photos[0] ]
   end
 end
 
