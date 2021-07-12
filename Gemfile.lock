@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/piousbox/ish_models.git
+  remote: https://github.com/piousbox/ish_models.git
   revision: c0e97e151da8ee9d9cd3ec4c7ca5dbe04c700944
   branch: master
   specs:
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ishapi (0.1.8.139)
+    ishapi (0.1.8.140)
       cancancan (~> 2.0)
       fb_graph
       googleauth (~> 0.8.0)
@@ -72,7 +72,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     aes_key_wrap (1.1.0)
     arel (9.0.0)
@@ -789,7 +789,7 @@ GEM
     builder (3.2.4)
     cancancan (2.3.0)
     climate_control (0.2.0)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     connection_pool (2.2.2)
     crass (1.0.6)
     devise (4.8.0)
@@ -841,7 +841,7 @@ GEM
       addressable
       faraday
       json (>= 1.8)
-    loofah (2.9.1)
+    loofah (2.10.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -857,8 +857,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
-    mini_portile2 (2.5.2)
-      net-ftp (~> 0.1)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     mongo (2.14.0)
       bson (>= 4.8.2, < 5.0.0)
@@ -873,14 +872,10 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    net-ftp (0.1.2)
-      net-protocol
-      time
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
-    net-protocol (0.1.0)
     nio4r (2.5.7)
-    nokogiri (1.11.6)
+    nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -929,7 +924,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
-    rake (13.0.3)
+    rake (13.0.6)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -952,12 +947,11 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.1.0)
     thread_safe (0.3.6)
-    time (0.1.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     warden (1.2.8)
       rack (>= 2.0.6)
-    websocket-driver (0.7.4)
+    websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
 
